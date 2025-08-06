@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+}
+
+.register-form-heading {
+    text-align: center;
+    margin-top: 178px;
+    font-size: 32px;
+}
+
+.register-form-inner {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.register-form-form {
+    padding: 16px 8px;
+    width: 680px;
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .register-form-form {
+        width: 560px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .register-form-form {
+        width: 80%;
+        padding: 24px 16px;
+    }
+}
+
+.register-form-group {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.register-form-group:first-of-type {
+    margin-top: 0;
+}
+
+.register-form-label {
+    display: block;
+    margin-bottom: 3px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.register-form-input {
+    display: block;
+    padding: 3px 12px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 3px;
+    font-family: serif;
+}
+
+.register-form-error-message {
+    color: red;
+}
+
+.register-form-btn {
+    display: block;
+    margin-top: 70px;
+    background-color: red;
+    color: white;
+    padding: 3px 12px;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    width: 100%;
+    height: 48px;
+}
+
+.login-link {
+    display: block;
+    text-decoration: none;
+    margin-top: 16px;
+    width: 100%;
+    text-align: center;
+}
