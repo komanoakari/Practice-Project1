@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/mypage.css')}}">
+<link rel="stylesheet" href="{{ asset('css/list.css')}}">
 @endsection
 
 @section('link')
@@ -15,5 +15,19 @@
 @endsection
 
 @section('content')
-<div>商品一覧</div>
+<div class="tabs">
+    <a href="{{ route('products.index', ['tab' => 'recommended']) }}" class="tab-link {{ ($tab??'recommended') === 'recommended' ? 'active' : '' }}">おすすめ</a>
+    <a href="{{ route('products.index', ['tab' => 'mylist']) }}" class="tab-link {{ ($tab??'recommended') === 'mylist' ? 'active' : '' }}">マイリスト</a>
+</div>
+<div class="product-contents">
+    @foreach ($products as $product)
+    <div class="product-content">
+        <a href="/products/detail/{{$product->id}}" class="product-link"></a>
+        <img src="{{ asset($product->image) }}" alt="商品画像" class="img-content">
+        <div class="detail-content">
+            <p>{{$product->name}}</p>
+        </div>
+    </div>
+    @endforeach
+</div>
 @endsection
