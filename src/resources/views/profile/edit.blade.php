@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/mypage.css')}}">
+<link rel="stylesheet" href="{{ asset('css/profile.css')}}">
 @endsection
 
 @section('link')
@@ -18,27 +18,30 @@
 <div class="edit-form">
     <h2 class="edit-form-heading">プロフィール設定</h2>
     <div class="edit-form-inner">
-        <form action="/edit" class="edit-form-form" method="post" enctype="multipart/form-data">
+        <form action="{{ route('profile.update') }}" class="edit-form-form" method="post" enctype="multipart/form-data">
             @csrf
-            <div class="edit-form-group">
-                <div id="preview"></div>
-                <label for="image" class="edit-form-label">画像を選択する</label>
+            <div class="edit-form-group no-image">
+                <div class="image-row">
+                    <div id="preview" class="avatar-preview">
+                        @if(empty($profile->image))
+                            <div class="image-placeholder"></div>
+                        @else
+                            <img src="{{ Storage::url($profile->image) }}" alt="現在のプロフィール画像" class="reader-image">
+                        @endif
+                    </div>
+                    <label for="image" class="edit-form-label file-label">画像を選択する</label>
+                </div>
+
                 <input type="file" name="image" id="image" class="edit-form-image" accept="image/*" style="display: none;">
                 <p class="edit-form-error-message">
                     @error('image')
                     {{ $message }}
                     @enderror
                 </p>
-
-                @isset($profile)
-                    @if($profile->image)
-                        <img src="{{ Storage::url($profile->image) }}" alt="現在のプロフィール画像" class="reader-image">
-                    @endif
-                @endisset
             </div>
             <div class="edit-form-group">
-                <label for="name" class="edit-form-label">ユーザー名</label>
-                <input type="text" name="user_name" id="user_name" class="edit-form-input" value="{{ old('user_name') }}">
+                <label for="user_name" class="edit-form-label">ユーザー名</label>
+                <input type="text" name="user_name" id="user_name" class="edit-form-input" value="{{ old('user_name', $profile->user_name) }}">
                 <p class="edit-form-error-message">
                     @error('user_name')
                     {{ $message }}
