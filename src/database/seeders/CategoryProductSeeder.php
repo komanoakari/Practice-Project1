@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class ProductCategorySeeder extends Seeder
+class CategoryProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +19,7 @@ class ProductCategorySeeder extends Seeder
         $cids = DB::table('categories')->pluck('id');
 
         foreach ($pids as $pid) {
-            DB::table('product_category')->insert([
+            DB::table('category_product')->insert([
                 'product_id' => $pid,
                 'category_id' => $cids->random(),
                     'created_at' =>now(), 'updated_at' => now(),

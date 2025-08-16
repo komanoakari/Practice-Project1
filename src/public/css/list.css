@@ -1,37 +1,30 @@
-.all-contents {
-
-
-}
-
 .tabs {
     display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
     height: 47px;
     margin-top: 127px;
-    margin-left: 127px;
+    margin-left: 100px;
 }
 
 .tab-link {
     text-decoration: none;
     font-size: 16px;
     color: black;
+    white-space: nowrap;
 }
 
 .tab-link-mylist {
     text-decoration: none;
     font-size: 16px;
-    color: red;
-    margin-left: 50px;
+    color: black;
+    white-space: nowrap;
 }
 
-@media screen and (min-width: 1400px) and (max-width: 1540px) {
-    .all-contents {
-
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 850px) {
-    .all-contents {
-
+@media screen and (min-width: 1400px) {
+    .product-content {
+        flex: 1 1 calc(20% - 16px);
+        max-width: calc(20% - 16px);
     }
 }
 
@@ -40,11 +33,12 @@
     width: 100%;
     margin-top: 50px;
     flex-wrap: wrap;
+    gap: 30px;
+    padding-left: 30px;
 }
 
 .product-content {
     width: 270px;
-    margin-left: 50px;
     border: none;
     position: relative;
 }
@@ -63,7 +57,13 @@
 }
 
 .detail-content {
+    display: flex;
     background-color: white;
-    height: 50px;
+    min-height: 50px;
+    position: relative;
 }
 
+.sales-status {
+    position: absolute;
+    right: 10px;
+}
