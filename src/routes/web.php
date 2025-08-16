@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 
 
 /*
@@ -15,7 +16,7 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::get('/', [ProductController::class, 'getProducts'])->name('products.index');
 
 Route::post('/logout', function () {
     Auth::logout();
@@ -23,7 +24,7 @@ Route::post('/logout', function () {
 })->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/mypage/profile', [ProductController::class, 'show']);
-    Route::post('/mypage/profile', [ProductController::class, 'edit']);
-    Route::get('/mypage', [ProductController::class, 'mypageShow']);
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/mypage', [ProfileController::class, 'show']);
 });
