@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Profile;
 
 class User extends Authenticatable
 {
@@ -42,8 +43,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($user) {
+                $user->profile()->create([
+                    'user_name'   => $user->name, 
+                    'postal_code' => '',
+                    'address'     => '',
+                    'building'    => '',
+            ]);
+        });
+    }
+
     public function profile()
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class)
+            ->withDefault([
+                'user_name' => $this->name,
+                'postal_code' => '',
+                'address' => '',
+                'building' => '',
+            ]);
     }
+
+    public function mylistProducts()
+    {
+        return $this->belongsToMany(Product::class, 'mylist', 'user_id', 'product_id')->withTimestamps();
+    }
+
 }
