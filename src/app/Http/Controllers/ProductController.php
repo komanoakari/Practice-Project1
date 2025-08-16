@@ -2,21 +2,36 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
-use App\Models\Profile;
-
+use App\Models\Category;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function getProducts(Request $request)
     {
-        $products = Product::all();
-        return view('list', compact('products'));
-    }
+        $uid = Auth::id();
+        $tab = $request->query('tab', 'recommended');
 
-    public function show()
-    {
-        $profiles = Profile::all();
-        return view('edit', compact('profiles'));
+        if ($tab === 'mylist') {
+            if (!$uid) {
+                $products = collect();
+            } else {
+                $products = Auth::user()
+                ->mylistProducts()
+                ->latest()
+                ->get();
+            }
+        } else {
+            $query = Product::query();
+            if ($uid) {
+                $query->where(function ($q) use ($uid) {
+                    $q->whereNull('user_id')->orWhere('user_id', '!=', $uid);
+                });
+            }
+            $products = $query->latest()->get();
+        }
+        return view('list', compact('products', 'tab'));
     }
 }
