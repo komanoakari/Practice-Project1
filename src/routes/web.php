@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 
@@ -23,8 +24,12 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
+Route::get('/item/{product}', [ProductController::class, 'getDetail'])->name('products.show');
+
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/mypage', [ProfileController::class, 'show']);
+    Route::post('/purchase/{product}', [ProductController::class, 'store'])->name('purchase.store');
 });
+
