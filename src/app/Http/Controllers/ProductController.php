@@ -34,4 +34,10 @@ class ProductController extends Controller
         }
         return view('list', compact('products', 'tab'));
     }
+
+    public function getDetail(Product $product)
+    {
+        $product->load('categories');
+        return view('detail', compact('product'));
+    }
 }
