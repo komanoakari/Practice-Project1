@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductCategory;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,40 @@ class ProductController extends Controller
 
     public function getDetail(Product $product)
     {
-        $product->load('categories');
-        return view('detail', compact('product'));
+        $product->load('categories')
+                ->loadCount('comments', 'wishlistBy as likes_count');
+
+        $liked = Auth()->check()
+            ? $product->wishlistBy()->where('user_id', auth()->id())->exists()
+            : false;
+
+        return view('detail', compact('product', 'liked'));
     }
+
+    public function addMylist(Request $request, Product $product)
+    {
+        $product->wishlistBy()->syncWithoutDetaching([$request->user()->id]);
+
+        $liked = true;
+        $likesCount = $product->wishlistBy()->count();
+
+        return response()->json([
+            'liked' => $liked,
+            'likes_count' => $likesCount,
+        ]);
+    }
+
+    public function removeMylist(Request $request, Product $product)
+    {
+        $product->wishlistBy()->detach([$request->user()->id]);
+
+        $liked = false;
+        $likesCount = $product->wishlistBy()->count();
+
+        return response()->json([
+            'liked' => $liked,
+            'likes_count' => $likesCount,
+        ]);
+    }
+
 }

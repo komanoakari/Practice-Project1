@@ -71,4 +71,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'mylist', 'user_id', 'product_id')->withTimestamps();
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }
