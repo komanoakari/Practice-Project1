@@ -31,5 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/mypage', [ProfileController::class, 'show']);
     Route::post('/purchase/{product}', [ProductController::class, 'store'])->name('purchase.store');
+
+    Route::post('/item/{product}/mylist', [ProductController::class, 'addMylist'])->name('mylist.store');
+    Route::delete('/item/{product}/mylist', [ProductController::class, 'removeMylist'])->name('mylist.destroy');
 });
 
