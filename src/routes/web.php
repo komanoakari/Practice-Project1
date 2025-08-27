@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 
@@ -16,7 +17,6 @@ use App\Http\Controllers\ProfileController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [ProductController::class, 'getProducts'])->name('products.index');
 
 Route::post('/logout', function () {
@@ -24,7 +24,19 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
+Route::get('/login', function () {
+    return view('auth.login');
+})
+    ->name('login')
+    ->middleware(['guest', 'remember.redirect']);
+
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.store')
+    ->middleware('guest');
+
 Route::get('/item/{product}', [ProductController::class, 'getDetail'])->name('products.show');
+
+Route::get('/item/{product}/likes', [ProductController::class, 'likes'])->name('likes.count');
 
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,5 +46,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/item/{product}/mylist', [ProductController::class, 'addMylist'])->name('mylist.store');
     Route::delete('/item/{product}/mylist', [ProductController::class, 'removeMylist'])->name('mylist.destroy');
+
+    Route::post('/item/{product}/comment', [ProductController::class, 'addComment'])->name('comment.store');
 });
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\CommentRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductCategory;
@@ -39,13 +40,28 @@ class ProductController extends Controller
     public function getDetail(Product $product)
     {
         $product->load('categories')
-                ->loadCount('comments', 'wishlistBy as likes_count');
+                ->loadCount(['comments', 'wishlistBy as likes_count']);
 
-        $liked = Auth()->check()
+        $liked = auth()->check()
             ? $product->wishlistBy()->where('user_id', auth()->id())->exists()
             : false;
 
         return view('detail', compact('product', 'liked'));
+    }
+
+    public function likes(Product $product) 
+    {
+        return response()->json([
+            'likes_count' => $product->wishlistBy()->count(),
+            'liked' => auth()->check()
+                ? $product-wishlistBy()->where('user_id', auth()->id())->exists()
+                : false
+        ]);
+    }
+
+    public function store(Request $request, Product $product)
+    {
+        
     }
 
     public function addMylist(Request $request, Product $product)
@@ -72,6 +88,16 @@ class ProductController extends Controller
             'liked' => $liked,
             'likes_count' => $likesCount,
         ]);
+    }
+
+    public function addComment(CommentRequest $request, Product $product)
+    {
+        $product->comments()->create([
+            'user_id' => $request->user()->id,
+            'body' => $request->input('body'),
+        ]);
+
+        return back()->with('status', 'コメントを投稿しました');
     }
 
 }
