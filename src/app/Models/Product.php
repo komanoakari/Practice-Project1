@@ -32,4 +32,9 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'mylist', 'product_id', 'user_id')->withTimestamps();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
