@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PurchaseController;
 
 
 /*
@@ -36,17 +40,21 @@ Route::post('/login', [AuthController::class, 'login'])
 
 Route::get('/item/{product}', [ProductController::class, 'getDetail'])->name('products.show');
 
-Route::get('/item/{product}/likes', [ProductController::class, 'likes'])->name('likes.count');
+Route::get('/item/{product}/likes', [LikeController::class, 'likes'])->name('likes.count');
 
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/mypage', [ProfileController::class, 'show']);
-    Route::post('/purchase/{product}', [ProductController::class, 'store'])->name('purchase.store');
+    Route::post('/purchase/{product}', [PurchaseController::class, 'store'])->name('purchase.store');
 
-    Route::post('/item/{product}/mylist', [ProductController::class, 'addMylist'])->name('mylist.store');
-    Route::delete('/item/{product}/mylist', [ProductController::class, 'removeMylist'])->name('mylist.destroy');
+    Route::post('/item/{product}/mylist', [LikeController::class, 'addMylist'])->name('mylist.store');
+    Route::delete('/item/{product}/mylist', [LikeController::class, 'removeMylist'])->name('mylist.destroy');
 
-    Route::post('/item/{product}/comment', [ProductController::class, 'addComment'])->name('comment.store');
+    Route::post('/item/{product}/comment', [CommentController::class, 'addComment'])->name('comment.store');
+
+    Route::get('/sell', [CategoryController::class, 'getListing']);
+    Route::get('/sell', [ProductController::class, 'create'])->name('sell');
+    Route::post('/sell', [ProductController::class, 'storeListing'])->name('sell.store');
 });
 
