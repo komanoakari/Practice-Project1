@@ -8,7 +8,7 @@
 <div class="login-form">
     <h2 class="login-form-heading">ログイン</h2>
     <div class="login-form-inner">
-        <form class="login-form-form" action="{{ route('login') }}" method="post">
+        <form class="login-form-form" action="{{ route('login.store') }}" method="post">
         @csrf
             <div class="login-form-group">
                 <label class="login-form-label" for="email">メールアドレス</label>
