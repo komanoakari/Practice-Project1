@@ -46,14 +46,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/mypage', [ProfileController::class, 'show']);
+
+    Route::get('/purchase/{product}', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::post('/purchase/{product}', [PurchaseController::class, 'store'])->name('purchase.store');
+
+    Route::get('/purchase/address/{product}', [PurchaseController::class, 'edit'])->name('address.edit');
+    Route::put('/purchase/address/{product}', [PurchaseController::class, 'update'])->name('address.update');
 
     Route::post('/item/{product}/mylist', [LikeController::class, 'addMylist'])->name('mylist.store');
     Route::delete('/item/{product}/mylist', [LikeController::class, 'removeMylist'])->name('mylist.destroy');
 
     Route::post('/item/{product}/comment', [CommentController::class, 'addComment'])->name('comment.store');
 
-    Route::get('/sell', [CategoryController::class, 'getListing']);
     Route::get('/sell', [ProductController::class, 'create'])->name('sell');
     Route::post('/sell', [ProductController::class, 'storeListing'])->name('sell.store');
 });
