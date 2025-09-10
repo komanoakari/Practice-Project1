@@ -38,6 +38,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile;
-        return view('mypage', compact('user', 'profile'));
+        return view('profile.mypage', compact('user', 'profile'));
     }
 }
