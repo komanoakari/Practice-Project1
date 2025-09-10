@@ -1,0 +1,221 @@
+.purchase-contents {
+    margin-top: 100px;
+    width: 100%;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.top-contents {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.product-basic {
+    display: flex;
+    gap: 20px;
+}
+
+.product-image {
+    width: min(40vw, 177px);
+    height: auto;
+    object-fit: cover;
+}
+
+.product-name {
+    font-size: 24px;
+}
+
+.product-price {
+    font-size: 34px;
+}
+
+.price-mark {
+    font-size: 22px;
+}
+
+hr {
+    width: 100%;
+    max-width: 768px;
+    margin-top: 60px;
+    box-sizing: border-box;
+}
+
+.payment-method-title,
+.shipping-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 16px 0 0;
+}
+
+.select-wrap {
+    position: relative;
+    display: block;
+    width: 30%;
+    max-width: 440px;
+    margin: 16px 0 0;
+}
+
+.payment-option-select {
+    display: block;
+    padding: 0px 40px 0 12px;
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: bold;
+    color: #5F5F5F;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.select-wrap::after {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid #BEB1A6;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    content: "";
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.shipping-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shipping-edit {
+    margin-top: 16px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.shipping-details {
+    margin-top: 16px;
+}
+
+.shipping-postal_code,
+.shipping-address {
+    font-size: 18px;
+    font-family: "Inter";
+    font-weight: 600;
+}
+.right-content {
+    width: 100%;
+}
+
+.purchase-summary {
+    width: 100%;
+    max-width: 440px;
+    border: 1px solid #000000;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background-color: #fff;
+}
+
+.purchase-summary th,
+.purchase-summary td {
+    padding: 12px 16px;
+    font-size: 18px;
+    font-family: "Inter";
+    font-weight: 600;
+    border-bottom: 1px solid #000;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.purchase-btn {
+    display: block;
+    width: 100%;
+    max-width: 440px;
+    margin: 24px auto 0;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    padding: 0px 12px;
+    font-weight: bold;
+    font-size: 22px;
+    border: none;
+    height: 56px;
+}
+
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .purchase-contents {
+        width: 80%;
+        max-width: none;
+        margin: 0 auto;
+    }
+
+    .product-basic {
+        gap: 40px;
+    }
+
+    hr {
+        max-width: none;
+    }
+
+    .top-contents {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 48px;
+    }
+
+    .left-content {
+        flex: 2;
+    }
+
+    .right-content {
+        flex: 1;
+    }
+
+    .product-image {
+        width: 170px;
+        height: auto;
+    }
+
+    .payment-method-title,
+    .shipping-title {
+        margin: 40px 0 0 30px;
+        font-size: 20px;
+    }
+
+    .select-wrap,
+    .shipping-details {
+        margin: 40px 0 0 90px;
+    }
+
+    .shipping-edit {
+        margin: 40px 30px 0 0;
+        font-size: 20px;
+    }
+
+    .purchase-summary,
+    .purchase-btn {
+        max-width: none;
+        width: 100%;
+    }
+
+    .purchase-summary tr {
+        min-height: 230px;
+    }
+
+    .purchase-summary tr {
+        height: 115px;
+    }
+
+    .purchase-btn {
+        margin-top: 24px;
+    }
+}
