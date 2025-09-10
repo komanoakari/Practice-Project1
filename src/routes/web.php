@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\CheckoutController;
 
 
 /*
@@ -52,6 +53,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/purchase/address/{product}', [PurchaseController::class, 'edit'])->name('address.edit');
     Route::put('/purchase/address/{product}', [PurchaseController::class, 'update'])->name('address.update');
+
+    Route::get('/checkout/stripe', [CheckoutController::class, 'stripe'])->name('checkout.stripe');
 
     Route::post('/item/{product}/mylist', [LikeController::class, 'addMylist'])->name('mylist.store');
     Route::delete('/item/{product}/mylist', [LikeController::class, 'removeMylist'])->name('mylist.destroy');
