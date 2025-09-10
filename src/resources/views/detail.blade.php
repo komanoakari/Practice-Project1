@@ -65,10 +65,7 @@
                     <div class="sold-out">売り切れ</div>
                 @else
                     @auth
-                        <form action="{{ route('purchase.store', $product) }}" method="post">
-                            @csrf
-                            <button class="purchase-btn" type="submit">購入手続きへ</button>
-                        </form>
+                        <a href="{{ route('purchase.create', ['product' => $product->id])}}" class="purchase-btn">購入手続きへ</a>
                     @else
                         <a href="{{ route('login', ['redirect' => request()->getRequestUri()]) }}" class="purchase-btn is-guest">購入手続きへ</a>
                     @endauth

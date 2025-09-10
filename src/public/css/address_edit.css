@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+}
+
+.address-edit-heading {
+    text-align: center;
+    margin-top: 128px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.address-edit-content {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.address-edit-form {
+    padding: 16px 8px;
+    width: 680px;
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .address-edit-form {
+        width: 560px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .address-edit-form {
+        width: 80%;
+        padding: 24px 16px;
+    }
+}
+
+.address-edit-group {
+    margin-top: 8px;
+    margin-bottom: 80px;
+    width: 100%;
+}
+
+.address-edit-group:first-of-type {
+    margin-top: 60px;
+}
+
+.address-edit-label {
+    display: block;
+    margin-bottom: 3px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.address-edit-input {
+    display: block;
+    padding: 3px 12px;
+    width: 100%;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-family: serif;
+}
+
+.address-edit-error-message {
+    color: red;
+}
+
+.address-edit-btn {
+    display: block;
+    border-radius: 5px;
+    margin-top: 150px;
+    background-color: red;
+    color: white;
+    padding: 3px 12px;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    width: 100%;
+    height: 60px;
+}
