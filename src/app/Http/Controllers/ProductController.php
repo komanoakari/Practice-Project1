@@ -17,22 +17,11 @@ class ProductController extends Controller
         $tab = $request->query('tab', 'recommended');
 
         if ($tab === 'mylist') {
-            if (!$uid) {
-                $products = collect();
-            } else {
-                $products = Auth::user()
-                ->mylistProducts()
-                ->latest()
-                ->get();
-            }
+            $products = $uid
+                ? Auth::user()->mylistProducts()->latest()->get()
+                : collect();
         } else {
-            $query = Product::query();
-            if ($uid) {
-                $query->where(function ($q) use ($uid) {
-                    $q->whereNull('user_id')->orWhere('user_id', '!=', $uid);
-                });
-            }
-            $products = $query->latest()->get();
+            $products = Product::latest()->get();
         }
         return view('list', compact('products', 'tab'));
     }
@@ -57,27 +46,19 @@ class ProductController extends Controller
 
     public function storeListing(ExhibitionRequest $request)
     {
-        $dir = "images";
+        $path = $request->file('image')->store('images', 'public');
 
-        $file_name = $request->file('image')->getClientOriginalName();
-        $request->file('image')->storeAs('public/'.$dir, $file_name);
-        $imagePathView = 'storage/'.$dir.'/'.$file_name;
+        $product = $request->user()->products()->create([
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'price' => $request->price,
+            'image' => $path,
+            'description' => $request->description,
+            'condition' => $request->condition,
+        ]);
 
-        DB::transaction(function () use ($request, $imagePathView){
-            $product = new Product();
-            $product->name = $request->input('name');
-            $product->brand = $request->input('brand');
-            $product->price = $request->input('price');
-            $product->image = $imagePathView;
-            $product->description = $request->input('description');
-            $product->condition = $request->input('condition');
-            $product->save();
+        $product->categories()->sync($request->input('category', []));
 
-            $categoryIds = $request->input('category', []);
-
-            $product->categories()->sync($categoryIds);
-        });
-
-        return redirect('/')->with('status', '出品が完了しました');
+        return redirect()->route('products.index')->with('status', '出品が完了しました');
     }
 }
