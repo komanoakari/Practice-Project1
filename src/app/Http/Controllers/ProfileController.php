@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -14,30 +16,39 @@ class ProfileController extends Controller
         return view('profile.edit', compact('profile'));
     }
 
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
-        $data = $request->validate([
-            'user_name' => 'required|string|max:255',
-            'postal_code' => 'nullable|string|max:10',
-            'address' => 'nullable|string|max:255',
-            'building' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
-        ]);
-
         $profile = Auth::user()->profile;
-        if ($request->file('image')) {
+
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('profile_images', 'public');
         }
 
         $profile->update($data);
 
-        return redirect('/mypage');
+        return redirect()->route('profile.show');
     }
 
     public function show()
     {
         $user = Auth::user();
-        $profile = $user->profile;
-        return view('profile.mypage', compact('user', 'profile'));
+
+        $listedProducts = $user->products()
+            ->latest()
+            ->paginate(8);
+
+        $orders = $user->orders()
+            ->with('product')
+            ->latest()
+            ->paginate(8);
+
+        return view('profile.mypage', [
+            'user' => $user,
+            'profile' => $user->profile,
+            'listedProducts' => $listedProducts,
+            'orders' => $orders,
+        ]);
     }
 }
