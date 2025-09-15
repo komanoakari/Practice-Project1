@@ -55,6 +55,11 @@ class User extends Authenticatable
         });
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class)

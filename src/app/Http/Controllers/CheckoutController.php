@@ -15,6 +15,6 @@ class CheckoutController extends Controller
         $session = Session::create([
             'payment_method_types' => ['card'],
             
-        ])
+        ]);
     }
 }
