@@ -25,7 +25,7 @@
         @foreach ($products as $product)
         <div class="product-content">
             <a href="/item/{{$product->id}}" class="product-link"></a>
-            <img src="{{ asset($product->image) }}" alt="商品画像" class="img-content">
+            <img src="{{ Storage::url($product->image) }}" alt="商品画像" class="img-content">
             <div class="detail-content">
                 <p>{{$product->name}}</p>
                 <p class="sales-status">{{ $product->is_sold ? 'Sold' : '販売中' }}</p>
