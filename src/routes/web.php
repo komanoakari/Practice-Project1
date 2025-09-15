@@ -46,7 +46,8 @@ Route::get('/item/{product}/likes', [LikeController::class, 'likes'])->name('lik
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/mypage', [ProfileController::class, 'show']);
+
+    Route::get('/mypage', [ProfileController::class, 'show'])->name('profile.show');
 
     Route::get('/purchase/{product}', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::post('/purchase/{product}', [PurchaseController::class, 'store'])->name('purchase.store');

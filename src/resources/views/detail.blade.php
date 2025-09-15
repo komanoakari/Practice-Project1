@@ -29,7 +29,7 @@
             <div class="product-name">{{$product->name}}</div>
             <div class="product-brand">{{$product->brand}}</div>
             <div class="product-price">
-                <span class="price-mark">¥</span>{{$product->price}}<span class="price-tax"> (税込)</span>
+                <span class="price-mark">¥</span>{{ number_format($product->price) }}<span class="price-tax"> (税込)</span>
             </div>
 
             <div class="product-icons">
