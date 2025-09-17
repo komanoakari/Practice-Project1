@@ -22,7 +22,7 @@ use App\Http\Controllers\CheckoutController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [ProductController::class, 'getProducts'])->name('products.index');
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
 Route::post('/logout', function () {
     Auth::logout();
@@ -42,6 +42,8 @@ Route::post('/login', [AuthController::class, 'login'])
 Route::get('/item/{product}', [ProductController::class, 'getDetail'])->name('products.show');
 
 Route::get('/item/{product}/likes', [LikeController::class, 'likes'])->name('likes.count');
+
+Route::get('/search', [ProductController::class, 'search'])->name('search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -4,16 +4,6 @@
 <link rel="stylesheet" href="{{ asset('css/detail.css')}}">
 @endsection
 
-@section('link')
-<form action="{{ route('logout') }}" method="POST" class="logout-form">
-    @csrf
-    <button class="header-link-logout" type="submit">ログアウト</button>
-</form>
-
-<a class="header-link-mypage" href="/mypage">マイページ</a>
-<a class="header-link-sell" href="/sell">出品</a>
-@endsection
-
 @section('content')
     @if (session('status'))
         <div class="alert-success">
