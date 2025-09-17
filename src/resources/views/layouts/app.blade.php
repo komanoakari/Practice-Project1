@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +8,46 @@
     @yield('css')
 </head>
 <body>
-    <div class="app">
-        <header class="header">
-            <img src="{{ asset('images/logo.svg') }}" alt="ロゴ">
-            @yield('link')
-        </header>
-        <div class="content">
-            @yield('content')
-        </div>
-    </div>
-    @yield('scripts')
+    <header class="header">
+        <img src="{{ asset('images/logo.svg') }}" alt="ロゴ画像">
+        <form action="{{ route('search') }}" method="GET" class="header-search" role="search">
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="なにをお探しですか？" class="header-search-input">
+        </form>
+
+        <nav class="header-nav">
+            @auth
+                <form action="{{ route('logout') }}" method="POST" class="header-nav-item">
+                    @csrf
+                    <button type="submit" class="header-btn">ログアウト</button>
+                </form>
+                <a href="{{ route('profile.show') }}" class="header-nav-item">マイページ</a>
+                <a href="{{ route('sell') }}" class="header-listing-link">出品</a>
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}" class="header-nav-item">ログイン</a>
+                <a href="{{ route('profile.show') }}" class="header-nav-item">マイページ</a>
+                <a href="{{ route('sell') }}" class="header-listing-link">出品</a>
+            @endguest
+        </nav>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const input = document.querySelector('.header-search-input');
+            if (!input) return;
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.isComposing) {
+                e.preventDefault();
+                input.form && input.form.submit();
+                }
+            });
+            });
+        </script>
+    </header>
+
+    <main>
+        @yield('content')
+    </main>
 </body>
 </html>

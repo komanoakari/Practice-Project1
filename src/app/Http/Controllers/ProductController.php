@@ -11,19 +11,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function getProducts(Request $request)
+    public function index(Request $request)
     {
-        $uid = Auth::id();
         $tab = $request->query('tab', 'recommended');
 
-        if ($tab === 'mylist') {
-            $products = $uid
-                ? Auth::user()->mylistProducts()->latest()->get()
-                : collect();
-        } else {
-            $products = Product::latest()->get();
-        }
-        return view('list', compact('products', 'tab'));
+        $products = Product::latest()->paginate(12);
+
+        $mylistedProducts = Auth::check()
+            ? Auth::user()->mylistProducts()->latest()->paginate(12)
+            : null;
+
+        return view('list', compact('products', 'mylistedProducts', 'tab'));
     }
 
     public function getDetail(Product $product)
@@ -59,6 +57,43 @@ class ProductController extends Controller
 
         $product->categories()->sync($request->input('category', []));
 
-        return redirect()->route('products.index')->with('status', '出品が完了しました');
+        return redirect()->route('profile.show')->with('status', '出品が完了しました');
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('q');
+
+        $tab = $request->query('tab','recommended');
+
+        $productQuery = Product::query();
+
+        if(!empty($keyword)) {
+            $productQuery->where('name', 'like', "%{$keyword}%");
+        }
+
+        $productQuery->orderBy('created_at', 'desc');
+
+        $products = $productQuery 
+            ->paginate(12)
+            ->withQueryString();
+
+        if(\Auth::check()) {
+            $mylistQuery = \Auth::user()->mylistProducts();
+
+            if(!empty($keyword)) {
+                $mylistQuery->where('name', 'like', "%{$keyword}%");
+            }
+
+            $mylistQuery->orderBy('created_at', 'desc');
+
+            $mylistedProducts = $mylistQuery
+                ->paginate(12)
+                ->withQueryString();
+        } else {
+            $mylistedProducts = null;
+        }
+
+        return view('list', compact('products', 'mylistedProducts', 'tab', 'keyword'));
     }
 }
