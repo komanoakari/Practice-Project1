@@ -4,34 +4,87 @@
 <link rel="stylesheet" href="{{ asset('css/list.css')}}">
 @endsection
 
-@section('link')
-<form action="{{ route('logout') }}" method="POST" class="logout-form">
-    @csrf
-    <button class="header-link-logout" type="submit">ログアウト</button>
-</form>
-
-<a class="header-link-mypage" href="/mypage">マイページ</a>
-<a class="header-link-sell" href="/sell">出品</a>
-@endsection
-
 @section('content')
-<div class="all-contents">
-    <div class="tabs">
-        <a href="{{ route('products.index', ['tab' => 'recommended']) }}" class="tab-link {{ ($tab??'recommended') === 'recommended' ? 'active' : '' }}">おすすめ</a>
-        <a href="{{ route('products.index', ['tab' => 'mylist']) }}" class="tab-link-mylist {{ ($tab??'recommended') === 'mylist' ? 'active' : '' }}">マイリスト</a>
-    </div>
+<div class="products">
+    <nav class="products-tabs" role="tablist" aria-label="商品一覧タブ">
+        <button type="button" id="tab-listed" class="products-tabs-tab" role="tab" aria-selected="true" aria-controls="panel-listed">おすすめ</button>
+        <button type="button" id="tab-mylist" class="products-tabs-tab" role="tab" aria-selected="false" aria-controls="panel-mylist">マイリスト</button>
+    </nav>
+
     <hr>
-    <div class="product-contents">
-        @foreach ($products as $product)
-        <div class="product-content">
-            <a href="/item/{{$product->id}}" class="product-link"></a>
-            <img src="{{ Storage::url($product->image) }}" alt="商品画像" class="img-content">
-            <div class="detail-content">
-                <p>{{$product->name}}</p>
-                <p class="sales-status">{{ $product->is_sold ? 'Sold' : '販売中' }}</p>
+
+    <section class="products-panels">
+        <div id="panel-listed" class="product-panel active" role="tabpanel" aria-labelledby="tab-listed">
+            <div class="products-content">
+                @foreach ($products as $product)
+                    <div class="product-card">
+                        <a href="{{ route('products.show', $product) }}" class="product-card-link">
+                            <img src="{{ Storage::url($product->image) }}" alt="商品画像" class="product-card-image">
+                            <div class="product-card-detail">
+                                <p>{{ $product->name }}</p>
+                                <p class="product-card-status">{{ $product->is_sold ? 'Sold' : '販売中' }}</p>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="products-pagination">
+                {{ $products->links('pagination::simple-bootstrap-4') }}
             </div>
         </div>
-        @endforeach
-    </div>
+
+        @auth
+        <div id="panel-mylist" class="product-panel" role="tabpanel" aria-labelledby="tab-mylist">
+            <div class="products-content">
+                @forelse ($mylistedProducts as $myproduct)
+                    <div class="product-card">
+                        <a href="{{ route('products.show', $myproduct) }}" class="product-card-link">
+                            <img src="{{ Storage::url($myproduct->image) }}" alt="商品画像" class="product-card-image">
+                            <div class="product-card-detail">
+                                <p>{{ $myproduct->name }}</p>
+                                <p class="product-card-status">{{ $myproduct->is_sold ? 'Sold' : '販売中' }}</p>
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <p class="products-empty">マイリストはまだありません</p>
+                @endforelse
+            </div>
+
+            <div class="products-pagination">
+            {{ $mylistedProducts->links('pagination::simple-bootstrap-4') }}
+            </div>
+        </div>
+        @endauth
+
+        @guest
+        <div id="panel-mylist" class="product-panel" role="tabpanel" aria-labelledby="tab-mylist">
+            <p class="product-login">マイリストを見るにはログインしてください</p>
+            <a href="{{ route('login') }}" class="product-login-link">ログインはこちら</a>
+        </div>
+        @endguest
+    </section>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.products-tabs-tab');   
+    const panels = document.querySelectorAll('.product-panel');    
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+
+            tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+            panels.forEach(p => p.classList.remove('active'));
+
+            tab.setAttribute('aria-selected', 'true');
+            const targetId = tab.getAttribute('aria-controls');
+            const targetPanel = document.getElementById(targetId);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+        });
+    });
+});
+</script>
 @endsection
