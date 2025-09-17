@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: 150px 1fr auto;
     align-items: center;
-    column-gap: 36px;
+    column-gap: 60px;
     padding: 24px 200px;
 }
 
@@ -25,12 +25,13 @@
 .mypage-header-name {
     text-align: left;
     justify-self: start;
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 700;
 }
 
 .mypage-header-link {
     display: inline-block;
+    justify-self: end;
     padding: 10px 24px;
     font-size: 22px;
     font-weight: 700;
@@ -40,8 +41,10 @@
     border-radius: 10px;
 }
 
-.mypage hr {
-    width: 100%;
+hr {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    border: none;
     border-top: 2px solid #5F5F5F;
 }
 
@@ -57,7 +60,7 @@
 .mypage-tabs-tab {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     color: #5F5F5F;
     position: relative;
@@ -107,12 +110,12 @@
 }
 
 .mypage-product-status {
-    font-size: 21px;
+    font-size: 25px;
 }
 
 .mypage-product-detail p{
     margin: 0;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .mypage-product-content {
