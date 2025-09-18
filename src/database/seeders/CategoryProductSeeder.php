@@ -22,7 +22,8 @@ class CategoryProductSeeder extends Seeder
             DB::table('category_product')->insert([
                 'product_id' => $pid,
                 'category_id' => $cids->random(),
-                    'created_at' =>now(), 'updated_at' => now(),
+                'created_at' =>now(),
+                'updated_at' => now(),
             ]);
         }
     }

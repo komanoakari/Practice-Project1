@@ -28,7 +28,7 @@ class ProfileController extends Controller
 
         $profile->update($data);
 
-        return redirect()->route('profile.show');
+        return redirect()->route('products.index')->with('status', 'プロフィールを登録しました');
     }
 
     public function show()
