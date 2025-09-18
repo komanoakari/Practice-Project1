@@ -57,7 +57,7 @@ class ProductController extends Controller
 
         $product->categories()->sync($request->input('category', []));
 
-        return redirect()->route('profile.show')->with('status', '出品が完了しました');
+        return redirect()->route('products.index')->with('status', '出品が完了しました');
     }
 
     public function search(Request $request)
