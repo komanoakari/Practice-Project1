@@ -11,7 +11,7 @@
         <form action="/register" class="register-form-form" method="post">
             @csrf
             <div class="register-form-group">
-                <label for="name" class="register-form-label">お名前</label>
+                <label for="name" class="register-form-label">ユーザー名</label>
                 <input type="text" name="name" id="name" class="register-form-input">
                 <p class="register-form-error-message">
                     @error('name')
