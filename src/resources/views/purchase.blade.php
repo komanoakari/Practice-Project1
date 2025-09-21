@@ -5,6 +5,20 @@
 @endsection
 
 @section('content')
+    @if (session('status'))
+        <div class="alert-success" style="color:#ff0000; font-size:24px;">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+    <div class="alert-error">
+        @foreach ($errors->all() as $e)
+        <div>{{ $e }}</div>
+        @endforeach
+    </div>
+    @endif
+
     <div class="purchase-contents">
         <div class="purchase-content">
             <form action="{{ route('purchase.store', ['product' => $product->id]) }}" class="purchase-form-inner" method="post">
@@ -12,11 +26,11 @@
                 <div class="top-contents">
                     <div class="left-content">
                         <div class="product-basic">
-                            <img src="{{ ($product->image) }}" alt="商品画像" class="product-image">
+                            <img src="{{ Storage::url($product->image) }}" alt="商品画像" class="product-image">
                             <div class="product-basic-info">
                                 <div class="product-name">{{ $product->name }}</div>
                                 <div class="product-price">
-                                    <span class="price-mark">¥ {{ number_format($product->price) }}</span>
+                                    <span class="price-mark">¥</span> {{ number_format($product->price) }}
                                 </div>
                             </div>
                         </div>
@@ -26,10 +40,10 @@
                             <div class="payment-method-title">支払い方法</div>
                             <div class="payment-options">
                                 <div class="select-wrap">
-                                    <select name="payment_method" class="payment-option-select" id="payment_method">
-                                        <option disabled selected hidden>選択してください</option>
-                                        <option value="コンビニ支払い">コンビニ支払い</option>
-                                        <option value="カード支払い">カード支払い</option>
+                                    <select name="payment_method" class="payment-option-select" id="payment_method" required>
+                                        <option value="" disabled {{ old('payment_method') ? '' : 'selected' }} hidden>選択してください</option>
+                                        <option value="コンビニ支払い" {{ old('payment_method') === 'コンビニ支払い' ? 'selected' : '' }}>コンビニ支払い</option>
+                                        <option value="カード支払い" {{ old('payment_method') === 'カード支払い'   ? 'selected' : '' }}>カード支払い</option>
                                     </select>
                                 </div>
                             </div>
@@ -75,17 +89,15 @@
             </form>
         </div>
     </div>
-@endsection
-
-@section('scripts')
 <script>
-  const sel = document.getElementById('payment_method');
-  const summary = document.getElementById('summary-payment');
-  if (sel && summary) {
-    sel.addEventListener('change', () => {
-      const text = sel.options[sel.selectedIndex]?.text || '未選択';
-      summary.textContent = text;
-    });
-  }
+    const sel = document.getElementById('payment_method');
+    const summary = document.getElementById('summary-payment');
+    if (sel && summary) {
+        sel.addEventListener('change', () => {
+        const text = sel.options[sel.selectedIndex]?.text || '未選択';
+        summary.textContent = text;
+        });
+    }
 </script>
 @endsection
+
