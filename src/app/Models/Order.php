@@ -14,8 +14,12 @@ class Order extends Model
         'product_id',
         'payment_method',
         'shipping_postal_code',
-        'shipping_building',
         'shipping_address',
+        'shipping_building',
+        'amount',
+        'status',
+        'stripe_session_id',
+        'paid_at',
     ];
 
     public function user() {
@@ -23,6 +27,6 @@ class Order extends Model
     }
 
     public function product() {
-        return $this->belongTo(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

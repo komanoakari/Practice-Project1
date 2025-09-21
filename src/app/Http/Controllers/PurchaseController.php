@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 use App\Models\Product;
 use App\Models\Order;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
-use Illuminate\Support\Facades\Auth;
-
 
 class PurchaseController extends Controller
 {
@@ -22,7 +23,7 @@ class PurchaseController extends Controller
         ];
 
         $shipping = session('checkout.shipping', $profileShipping);
-        
+
         return view('purchase', compact('product', 'shipping'));
     }
 
@@ -31,9 +32,88 @@ class PurchaseController extends Controller
         $order = Order::create($request->validated() + [
             'user_id' => auth()->id(),
             'product_id' => $product->id,
+            'amount' => $product->price,
+            'payment_method' => $request->payment_method,
+            'status' => 'pending',
         ]);
 
-        return redirect('/')->with('status','商品を購入しました');
+        if ($request->payment_method === 'コンビニ支払い') {
+            $order->update([
+                'status' => 'paid',
+                'paid_at' => now(),
+            ]);
+
+        $product->is_sold = true;
+        $product->save();
+
+        return redirect('/')->with('status', 'コンビニ払いで購入を完了しました');
+        }
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $session = StripeSession::create([
+            'mode' => 'payment',
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => ['name' => $product->name],
+                    'unit_amount' => $product->price,
+                ],
+                'quantity' => 1,
+            ]],
+
+            'success_url' => route('checkout.success',['order' => $order->id]) . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('checkout.cancel', ['order' => $order->id]),
+            ]);
+
+            $order->update(['stripe_session_id' => $session->id]);
+
+            return redirect()->away($session->url);
+    }
+
+    public function success(Request $request, Order $order)
+    {
+        if ($order->payment_method === 'コンビニ支払い' || $order->status === 'paid') {
+            return redirect('/')->with('status', '商品を購入しました');
+        }
+
+        $sid = $request->query('session_id');
+        if (!$sid) {
+            return redirect('/')->withErrors('決済確認に失敗しました');
+        }
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+        $session = StripeSession::retrieve($sid);
+
+        if ($session->payment_status === 'paid') {
+            $order->update([
+                'status' => 'paid',
+                'paid_at' => now(),
+            ]);
+
+            if ($product = Product::find($order->product_id)) {
+                $product->is_sold = true;
+                $product->save();
+            }
+
+            return redirect('/')->with('status', '商品を購入しました');
+        }
+
+        return redirect('/')->with('status','お支払い手続き中です');
+    }
+
+    public function cancel(Order $order)
+    {
+        if ($order->status === 'paid') {
+            return redirect('/')->with('status', 'すでに購入済みです');
+        }
+
+        $order->update(['status' => 'canceled']);
+
+        return redirect()
+            ->route('purchase.create', ['product' => $order->product_id])
+            ->with('status', '決済をキャンセルしました');
     }
 
     public function edit(Product $product)

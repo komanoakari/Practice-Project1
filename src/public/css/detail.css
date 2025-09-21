@@ -115,7 +115,7 @@
     text-decoration: none;
 }
 
-.product-barge--sold {
+.badge-sold {
     display: flex;
     justify-content: center;
     align-items: center;

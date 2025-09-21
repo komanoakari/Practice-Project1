@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class AddIsSoldToProductsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
@@ -18,11 +13,6 @@ class AddIsSoldToProductsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
