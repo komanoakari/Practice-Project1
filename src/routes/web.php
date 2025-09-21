@@ -41,7 +41,7 @@ Route::get('/email/verify', function() {
 
 Route::get('/email/verify/{id}/{hash}', function(EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect()->route('profile.edit')->with('status', 'メール認証が完了しました');
+    return redirect()->route('profile.edit', ['back' => 'products'])->with('back', 'products')->with('status', 'メール認証が完了しました');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {
@@ -61,10 +61,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/{product}', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::post('/purchase/{product}', [PurchaseController::class, 'store'])->name('purchase.store');
 
+    Route::get('/checkout/success/{order}', [PurchaseController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel/{order}', [PurchaseController::class, 'cancel'])->name('checkout.cancel');
+
     Route::get('/purchase/address/{product}', [PurchaseController::class, 'edit'])->name('address.edit');
     Route::put('/purchase/address/{product}', [PurchaseController::class, 'update'])->name('address.update');
-
-    Route::get('/checkout/stripe', [CheckoutController::class, 'stripe'])->name('checkout.stripe');
 
     Route::post('/item/{product}/mylist', [LikeController::class, 'addMylist'])->name('mylist.store');
     Route::delete('/item/{product}/mylist', [LikeController::class, 'removeMylist'])->name('mylist.destroy');
