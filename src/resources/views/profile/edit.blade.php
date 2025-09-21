@@ -8,7 +8,7 @@
 <div class="edit-form">
     <h2 class="edit-form-heading">プロフィール設定</h2>
     <div class="edit-form-inner">
-        <form action="{{ route('profile.update') }}" class="edit-form-form" method="post" enctype="multipart/form-data">
+        <form action="{{ route('profile.update', ['back' => old('back', request('back', session('back', 'mypage')))]) }}" class="edit-form-form" method="post" enctype="multipart/form-data">
             @csrf
             <div class="edit-form-group no-image">
                 <div class="image-row">
@@ -65,6 +65,7 @@
                     @enderror
                 </p>
             </div>
+            <input type="hidden" name="back" value="{{ request('back', 'mypage') }}">
             <input type="submit" class="edit-form-btn" value="更新する">
         </form>
         <script>

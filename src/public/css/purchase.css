@@ -1,36 +1,44 @@
 .purchase-contents {
-    margin-top: 100px;
-    width: 100%;
-    max-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 170px;
+    max-width: 1300px;
+    margin: 100px auto 0;
     padding: 16px;
     box-sizing: border-box;
 }
 
 .top-contents {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    flex-direction: flex-start;
+    gap: 48px;
+}
+
+.left-content {
+    flex: 2;
+}
+
+.right-content {
+    flex: 1;
+    width: 100%;
 }
 
 .product-basic {
     display: flex;
-    gap: 20px;
+    gap: 40px;
 }
 
 .product-image {
-    width: min(40vw, 177px);
-    height: auto;
+    width: 170px;
+    height: 170px;
     object-fit: cover;
 }
 
 .product-name {
-    font-size: 24px;
+    font-size: 26px;
+    font-weight: bold;
 }
 
 .product-price {
-    font-size: 34px;
+    font-size: 26px;
 }
 
 .price-mark {
@@ -39,37 +47,37 @@
 
 hr {
     width: 100%;
-    max-width: 768px;
-    margin-top: 60px;
-    box-sizing: border-box;
+    margin: 60px 0 0;
+    border: none;
+    border-top: 1px solid #000000;
 }
 
 .payment-method-title,
 .shipping-title {
-    font-size: 18px;
+    margin: 40px 0 0 30px;
+    font-size: 20px;
     font-weight: bold;
-    margin: 16px 0 0;
 }
 
-.select-wrap {
-    position: relative;
-    display: block;
-    width: 30%;
+.select-wrap,
+.shipping-details {
+    margin: 25px 0 0 90px;
+    width: 60%;
     max-width: 440px;
-    margin: 16px 0 0;
+    position: relative;
 }
 
 .payment-option-select {
     display: block;
-    padding: 0px 40px 0 12px;
     width: 100%;
-    height: 30px;
+    height: 40px;
+    padding: 0 40px 0 12px;
     box-sizing: border-box;
     border: 1px solid #5F5F5F;
     border-radius: 4px;
-    font-family: "Inter";
+    font-family: "Inter", system-ui, sans-serif;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     color: #5F5F5F;
     appearance: none;
     -webkit-appearance: none;
@@ -97,23 +105,16 @@ hr {
 }
 
 .shipping-edit {
-    margin-top: 16px;
+    margin: 40px 30px 0 0;
     text-decoration: none;
-    font-size: 18px;
-}
-
-.shipping-details {
-    margin-top: 16px;
+    font-size: 20px;
 }
 
 .shipping-postal_code,
 .shipping-address {
-    font-size: 18px;
+    font-size: 20x;
     font-family: "Inter";
     font-weight: 600;
-}
-.right-content {
-    width: 100%;
 }
 
 .purchase-summary {
@@ -123,13 +124,14 @@ hr {
     border-collapse: collapse;
     margin: 20px auto;
     background-color: #fff;
+    min-height: 230px;
 }
 
 .purchase-summary th,
 .purchase-summary td {
     padding: 12px 16px;
     font-size: 18px;
-    font-family: "Inter";
+    font-family: "Inter", system-ui, sans-serif;
     font-weight: 600;
     border-bottom: 1px solid #000;
     text-align: center;
@@ -139,83 +141,64 @@ hr {
 .purchase-btn {
     display: block;
     width: 100%;
-    max-width: 440px;
-    margin: 24px auto 0;
-    border-radius: 5px;
-    background-color: red;
-    color: white;
-    padding: 0px 12px;
-    font-weight: bold;
-    font-size: 22px;
+    margin-top: 50px;
+    height: 60px;
     border: none;
-    height: 56px;
+    border-radius: 5px;
+    background: red;
+    color: #fff;
+    font-weight: bold;
+    font-size: 26px;
+    padding: 0 12px;
 }
 
-@media (min-width: 1400px) and (max-width: 1540px) {
+@media (min-width: 768px) and (max-width: 850px) {
     .purchase-contents {
-        width: 80%;
-        max-width: none;
-        margin: 0 auto;
-    }
-
-    .product-basic {
-        gap: 40px;
-    }
-
-    hr {
-        max-width: none;
+        max-width: 600px;
     }
 
     .top-contents {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 48px;
+        flex-direction: column;
+        gap: 24px;
     }
 
-    .left-content {
-        flex: 2;
-    }
-
-    .right-content {
-        flex: 1;
+    .product-basic {
+        gap: 20px;
     }
 
     .product-image {
-        width: 170px;
+        width: min(40vw, 177px);
         height: auto;
     }
 
     .payment-method-title,
     .shipping-title {
-        margin: 40px 0 0 30px;
-        font-size: 20px;
+        margin: 16px 0 0;
+        font-size: 18px;
     }
 
     .select-wrap,
     .shipping-details {
-        margin: 40px 0 0 90px;
+        margin: 16px 0 0;
+        width: 100%;
+        max-width: 440px;
     }
 
     .shipping-edit {
-        margin: 40px 30px 0 0;
-        font-size: 20px;
+        margin: 16px 0 0;
+        font-size: 18px;
     }
 
-    .purchase-summary,
+    .purchase-summary {
+        max-width: 440px;
+        margin: 20px auto;
+    }
     .purchase-btn {
-        max-width: none;
-        width: 100%;
+        max-width: 440px;
+        margin: 24px auto 0;
     }
 
-    .purchase-summary tr {
-        min-height: 230px;
-    }
-
-    .purchase-summary tr {
-        height: 115px;
-    }
-
-    .purchase-btn {
-        margin-top: 24px;
+    hr {
+        margin-top: 30px;
     }
 }

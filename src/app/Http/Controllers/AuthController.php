@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        $remember = (bool) $request->input('remember', false);
+        $loginInfo = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials, $remember)) {
+        if (Auth::attempt($loginInfo)) {
             $request->session()->regenerate();
-
-            return redirect()->intended(route('products.index'));
+            return redirect('/');
         }
 
-        return back()->withErrors([
-            'email' => 'ログイン情報が正しくありません',
-        ])->onlyInput('email');
+        return back()->withInput()->with('auth_error', 'ログイン情報が登録されていません');
     }
 }
