@@ -2,3 +2,5 @@ docker/mysql/data/*
 !docker/mysql/data/.gitkeep
 .DS_Store
 .DS_Store
+/vendor/
+/node_modules/
