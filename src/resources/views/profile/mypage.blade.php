@@ -5,13 +5,20 @@
 @endsection
 
 @section('content')
+@if (session('status'))
+    <div class="alert-success" style="color:#ff0000; font-size:24px;">
+        {{ session('status') }}
+    </div>
+@endif
+
+
 <div class="mypage">
     <header class="mypage-header">
         <img src="{{ $profile?->image ? Storage::url($profile->image) : asset('images/placeholder.png') }}" alt="プロフィール画像" class="mypage-header-avatar">
 
         <h2 class="mypage-header-name">{{ $profile->user_name ?? $user->name ?? 'ゲスト' }}</h2>
 
-        <a href="{{ route('profile.edit', ['user' => $user->id]) }}" class="mypage-header-link">プロフィールを編集</a>
+        <a href="{{ route('profile.edit', ['back' => 'mypage']) }}" class="mypage-header-link">プロフィールを編集</a>
     </header>
 
     <nav class="mypage-tabs" role="tablist" aria-label="マイページタブ">

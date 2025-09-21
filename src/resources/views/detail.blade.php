@@ -49,7 +49,7 @@
 
             <div class="product-purchase">
                 @if ($product->is_sold)
-                    <div class="product-barge--sold">売り切れ</div>
+                    <div class="badge-sold">売り切れ</div>
                 @else
                     @auth
                         <a href="{{ route('purchase.create', ['product' => $product->id])}}" class="product-purchase-btn">購入手続きへ</a>
