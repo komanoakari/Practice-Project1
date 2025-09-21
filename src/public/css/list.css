@@ -108,6 +108,7 @@ hr {
     display: flex;
     justify-content: center;
     text-align: center;
+    text-decoration: none;
     font-size: 26px;
 }
 
