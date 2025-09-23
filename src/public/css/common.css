@@ -1,5 +1,17 @@
+html,
 body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
     margin: 0;
+    padding: 0;
+}
+
+main {
+    min-height: calc(100vh - 82px);
+    box-sizing: border-box;
+    padding: 16px;
+    overflow: visible;
 }
 
 .header {
@@ -8,8 +20,6 @@ body {
     align-items: center;
     min-height: 82px;
     width: 100%;
-    padding: 0;
-    margin: 0;
     background-color: black;
 }
 
