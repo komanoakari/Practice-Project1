@@ -4,9 +4,9 @@
     align-items: flex-start;
     flex-direction: row;
     gap: 70px;
-    width: 90%;
-    max-width: 1400px;
-    margin: 90px auto 0;
+    width: 80%;
+    max-width: 1200px;
+    margin: 50px auto 0;
     box-sizing: border-box;
 }
 
@@ -20,31 +20,31 @@
 
 .product-image {
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     height: auto;
     object-fit: cover;
 }
 
 .product-name {
-    font-size: 43px;
+    font-size: 39px;
     font-weight: bold;
 }
 
 .product-brand {
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 12px;
 }
 
 .product-price {
-    font-size: 43px;
+    font-size: 39px;
 }
 
 .price-price-mark {
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .price-price-tax {
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .product-actions {
@@ -61,7 +61,7 @@
 
 .product-likes-count,
 .product-comments-count {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -88,7 +88,7 @@
     margin-top: 20px;
     background-color: red;
     color: white;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     border: none;
     width: 100%;
@@ -105,7 +105,7 @@
     margin-top: 10px;
     background-color: red;
     color: white;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     border: none;
     width: 100%;
@@ -122,7 +122,7 @@
     margin-top: 10px;
     background-color: #DCDCDC;
     color: #666;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     border: none;
     width: 100%;
@@ -137,13 +137,13 @@
 }
 
 .product-section-title {
-    font-size: 34px;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 25px;
 }
 
 .product-description {
-    font-size: 22px;
+    font-size: 18px;
 }
 
 .product-category,
@@ -156,7 +156,7 @@
 
 .product-category-title,
 .product-condition-title {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -177,12 +177,12 @@
 }
 
 .product-condition-value {
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .product-comments-title {
     color: #5F5F5F;
-    font-size: 34px;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 15px;
 }
@@ -194,7 +194,7 @@
 }
 
 .product-comment-username {
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -203,8 +203,8 @@
     align-items: center;
     justify-content: center;
     background: #D9D9D9;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
     opacity: 1;
@@ -232,13 +232,14 @@
     align-items: center;
     background-color: #D9D9D9;
     color: #000000;
-    font-size: 20px;
+    font-size: 16px;
     border: none;
     width: 100%;
-    min-height: 70px;
+    min-height: 50px;
     margin-top: 15px;
     padding-left: 15px;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .product-comment {
@@ -246,7 +247,7 @@
 }
 
 .product-comment-lead {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -255,8 +256,9 @@
     display: block;
     width: 100%;
     min-height: 220px;
-    font-size: 26px;
+    font-size: 22px;
     border: 2px solid #5F5F5F;
+    box-sizing: border-box;
 }
 
 .product-comment-submit,
@@ -264,10 +266,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 30px;
     background-color: red;
     color: white;
-    font-size: 23px;
+    font-size: 19px;
     font-weight: bold;
     border: none;
     width: 100%;
