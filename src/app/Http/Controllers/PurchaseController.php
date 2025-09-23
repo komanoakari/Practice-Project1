@@ -29,12 +29,25 @@ class PurchaseController extends Controller
 
     public function store(PurchaseRequest $request, Product $product)
     {
+        $profile = Auth::user()->profile;
+
+        $profileShipping = [
+            'shipping_postal_code' => $profile->postal_code ?? '',
+            'shipping_address' => $profile->address ?? '',
+            'shipping_building' => $profile->building ?? '',
+        ];
+
+        $shipping = session('checkout.shipping', $profileShipping);
+
         $order = Order::create($request->validated() + [
             'user_id' => auth()->id(),
             'product_id' => $product->id,
             'amount' => $product->price,
             'payment_method' => $request->payment_method,
             'status' => 'pending',
+            'shipping_postal_code' => $shipping['shipping_postal_code'],
+            'shipping_address' => $shipping['shipping_address'],
+            'shipping_building' => $shipping['shipping_building'],
         ]);
 
         if ($request->payment_method === 'コンビニ支払い') {
@@ -45,6 +58,8 @@ class PurchaseController extends Controller
 
         $product->is_sold = true;
         $product->save();
+
+        session()->forget('checkout.shipping');
 
         return redirect('/')->with('status', 'コンビニ払いで購入を完了しました');
         }
@@ -97,6 +112,7 @@ class PurchaseController extends Controller
                 $product->save();
             }
 
+            session()->forget('checkout.shipping');
             return redirect('/')->with('status', '商品を購入しました');
         }
 
@@ -110,6 +126,8 @@ class PurchaseController extends Controller
         }
 
         $order->update(['status' => 'canceled']);
+
+        session()->forget('checkout.shipping');
 
         return redirect()
             ->route('purchase.create', ['product' => $order->product_id])

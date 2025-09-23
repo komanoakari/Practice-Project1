@@ -17,7 +17,7 @@
                         <span class="image-text">画像を選択する</span>
                         <div class="image-preview" id="preview"></div>
                     </label>
-                    <input type="file" name="image" id="image" class="image-input" accept="image/*" style="display: none;">
+                    <input type="file" name="image" id="image" class="image-input" accept="image/*" style="display: none;" value="{{ old('image') }}">
                 </div>
 
                 <p class="listing-form-error">
@@ -33,7 +33,7 @@
                 <span class="listing-form-label">カテゴリー</span>
                 <div class="chip-group">
                     @foreach ($categories as $category)
-                        <input type="checkbox" name="category[]" id="{{ $category->id }}" value="{{ $category->id }}">
+                        <input type="checkbox" name="category[]" id="{{ $category->id }}" value="{{ $category->id }}" value="{{ old('category[]') }}">
                         <label for="{{ $category->id }}" class="chip">{{ $category->name }}</label>
                     @endforeach
                 </div>
@@ -47,7 +47,7 @@
             <div class="listing-form-group">
                 <label for="condition" class="listing-condition-label">商品の状態</label>
                 <div class="listing-form-select-inner">
-                    <select name="condition" class="listing-form-select" id="condition">
+                    <select name="condition" class="listing-form-select" id="condition" value="{{ old('condition') }}">
                         <option disabled selected hidden>選択してください</option>
                         <option value="良好">良好</option>
                         <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
