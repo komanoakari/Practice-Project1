@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $loginInfo = $request->only('email', 'password');
 
@@ -16,6 +16,6 @@ class AuthController extends Controller
             return redirect('/');
         }
 
-        return back()->withInput()->with('auth_error', 'ログイン情報が登録されていません');
+        return back()->withErrors(['email' => 'ログイン情報が登録されていません'])->onlyInput('email');
     }
 }

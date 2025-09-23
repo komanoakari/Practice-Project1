@@ -11,14 +11,6 @@
         </div>
     @endif
 
-    @if ($errors->any())
-    <div class="alert-error">
-        @foreach ($errors->all() as $e)
-        <div>{{ $e }}</div>
-        @endforeach
-    </div>
-    @endif
-
     <div class="purchase-contents">
         <div class="purchase-content">
             <form action="{{ route('purchase.store', ['product' => $product->id]) }}" class="purchase-form-inner" method="post">
@@ -45,6 +37,10 @@
                                         <option value="コンビニ支払い" {{ old('payment_method') === 'コンビニ支払い' ? 'selected' : '' }}>コンビニ支払い</option>
                                         <option value="カード支払い" {{ old('payment_method') === 'カード支払い'   ? 'selected' : '' }}>カード支払い</option>
                                     </select>
+                                    @error('payment_method')
+                                        <div class="payment-error-message">{{ $message }}</div>
+                                    @enderror
+
                                 </div>
                             </div>
                         </div>
@@ -63,12 +59,12 @@
                                         {{ $shipping['shipping_building'] }}
                                     @endif
                                 </div>
+                                @error('shipping_postal_code')
+                                    <div class="shipping-error-message">{{ $message }}</div>
+                                @enderror
+
                             </div>
                             <hr>
-
-                            <input type="hidden" name="shipping_postal_code" value="{{ $shipping['shipping_postal_code'] }}">
-                            <input type="hidden" name="shipping_address" value="{{ $shipping['shipping_address'] }}">
-                            <input type="hidden" name="shipping_building" value="{{ $shipping['shipping_building'] }}">
                         </div>
                     </div>
 
