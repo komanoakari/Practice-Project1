@@ -27,6 +27,7 @@ Route::get('/login', function () {
     ->name('login')
     ->middleware(['guest', 'remember.redirect']);
 
+
 Route::post('/login', [AuthController::class, 'login'])
     ->name('login.store')
     ->middleware('guest');

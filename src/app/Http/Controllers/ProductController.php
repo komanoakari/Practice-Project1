@@ -15,10 +15,21 @@ class ProductController extends Controller
     {
         $tab = $request->query('tab', 'recommended');
 
-        $products = Product::latest()->paginate(12);
+        $products = Product::with('order')
+            ->when(Auth::check(), function($q) {
+                $q->where(function($q) {
+                    $q->whereNull('user_id')
+                        ->orWhere('user_id', '!=', Auth::id());
+                });
+            })
+            ->latest()
+            ->paginate(12);
 
         $mylistedProducts = Auth::check()
-            ? Auth::user()->mylistProducts()->latest()->paginate(12)
+            ? Auth::user()->mylistProducts()
+                ->with('order')
+                ->latest()
+                ->paginate(12)
             : null;
 
         return view('list', compact('products', 'mylistedProducts', 'tab'));
@@ -66,7 +77,13 @@ class ProductController extends Controller
 
         $tab = $request->query('tab','recommended');
 
-        $productQuery = Product::query();
+        $productQuery = Product::query()
+            ->when(Auth::check(), function ($q) {
+                $q->where(function ($q) {
+                    $q->whereNull('user_id')
+                        ->orWhere('user_id', '!=', Auth::id());
+                });
+            });
 
         if(!empty($keyword)) {
             $productQuery->where('name', 'like', "%{$keyword}%");
@@ -74,7 +91,7 @@ class ProductController extends Controller
 
         $productQuery->orderBy('created_at', 'desc');
 
-        $products = $productQuery 
+        $products = $productQuery
             ->paginate(12)
             ->withQueryString();
 

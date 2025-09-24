@@ -13,7 +13,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('brand')->nullable();
             $table->integer('price');
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->text('description');
             $table->string('condition');
             $table->timestamp('created_at')->useCurrent()->nullable();
