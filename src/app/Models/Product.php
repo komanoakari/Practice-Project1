@@ -16,12 +16,16 @@ class Product extends Model
         'image',
         'description',
         'condition',
-        'is_sold',
     ];
 
     protected $casts = [
         'is_sold' => 'boolean',
     ];
+
+    public function getIsSoldAttribute() : bool
+    {
+        return optional($this->order)->status === 'paid';
+    }
 
     public function user()
     {
