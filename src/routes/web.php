@@ -21,11 +21,15 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-Route::get('/login', function () {
+Route::get('/login', function (Request $request) {
+    if ($request->filled('redirect')) {
+        $target = urldecode($request->query('redirect'));
+        if (strpos($target, '/') === 0) {
+            session(['url.intended' => $target]);
+        }
+    }
     return view('auth.login');
-})
-    ->name('login')
-    ->middleware(['guest', 'remember.redirect']);
+})->name('login')->middleware(['guest']);
 
 
 Route::post('/login', [AuthController::class, 'login'])

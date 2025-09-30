@@ -65,6 +65,7 @@ class MylistTest extends TestCase
             'image' => 'a.img',
             'condition' => '良好',
         ]);
+        $user->mylistProducts()->syncWithoutDetaching([$a->id]);
 
         \Illuminate\Support\Facades\DB::table('orders')->insert([
             'user_id' => $user->id,
@@ -78,22 +79,40 @@ class MylistTest extends TestCase
             'updated_at' => now(),
         ]);
 
-        $user->mylistProducts()->syncWithoutDetaching([$a->id]);
+        $response = $this->get('/')->assertOk();
+        $mylist = $response->viewData('mylistedProducts');
+        $item = collect($mylist->items())->firstWhere('id', $a->id);
+
+        $this->assertNotNull($item);
+        $this->assertTrue($item->is_sold);
+
+        $response->assertSee('いいねした商品')->assertSee('Sold');
+    }
+
+    public function test_guest_mylist_products()
+    {
+        $someone = User::forceCreate([
+            'name' => '誰か',
+            'email' => 'test@example.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        $p = Product::forceCreate([
+            'name' => 'いいねした商品',
+            'price' => 4000,
+            'description' => '説明',
+            'image' => 'a.img',
+            'condition' => '良好',
+        ]);
+
+        $someone->mylistProducts()->syncWithoutDetaching([$p->id]);
+
+        $this->assertGuest();
 
         $response = $this->get('/')->assertOk();
 
+        $this->assertNull($response->viewData('mylistedProducts'));
 
-
-
-
-        
-        $mylisted = $response->viewData('mylistedProducts');
-
-        $names = collect($mylisted->items())->pluck('name')->all();
-
-        $this->assertContains('いいねした商品', $names);
-        $this->assertNotContains('いいねしてない商品', $names);
+        $response->assertSee('マイリストを見るにはログインしてください');
     }
-
-
 }

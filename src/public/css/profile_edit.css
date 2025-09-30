@@ -23,12 +23,6 @@
     height: 459px;
 }
 
-@media screen and (min-width: 1400px) and (max-width: 1540px) {
-    .edit-form-form {
-        width: 560px;
-    }
-}
-
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .edit-form-form {
         width: 80%;

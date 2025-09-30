@@ -13,7 +13,14 @@ class AuthController extends Controller
 
         if (Auth::attempt($loginInfo)) {
             $request->session()->regenerate();
-            return redirect('/');
+
+            $to = $request->input('redirect');
+            if ($to) {
+                $to = urldecode($to);
+                if (str_starts_with($to, '/'))
+                    return redirect($to);
+            }
+            return redirect()->intended('/');
         }
 
         return back()->withErrors(['email' => 'ログイン情報が登録されていません'])->onlyInput('email');

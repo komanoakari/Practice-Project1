@@ -10,7 +10,7 @@
     grid-template-columns: 150px 1fr auto;
     align-items: center;
     column-gap: 60px;
-    padding: 24px 200px;
+    padding: 16px 200px;
 }
 
 .mypage-header-avatar {
@@ -23,6 +23,9 @@
 }
 
 .mypage-header-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-align: left;
     justify-self: start;
     font-size: 36px;
