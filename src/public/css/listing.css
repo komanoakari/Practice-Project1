@@ -11,15 +11,10 @@
 }
 
 .listing-form-inner {
+    height: auto;
     padding: 16px 8px;
     width: 680px;
-    height: 459px;
-}
-
-@media screen and (min-width: 1400px) and (max-width: 1540px) {
-    .listing-form-inner {
-        width: 560px;
-    }
+    min-height: 459px;
 }
 
 @media screen and (min-width: 768px) and (max-width: 850px) {

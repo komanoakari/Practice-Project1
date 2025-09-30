@@ -112,7 +112,7 @@
                         @auth
                             <button type="submit" class="product-comment-submit">コメントを送信する</button>
                         @else
-                            <a href="{{ route('login', ['redirect' => request()->getRequestUri().'#comment']) }}" class="product-comment-submit--guest">コメントを送信する</a>
+                            <a href="{{ route('login', ['redirect' => request()->getRequestUri().'%23comment']) }}" class="product-comment-submit--guest">コメントを送信する</a>
                         @endauth
                     </form>
                 </div>

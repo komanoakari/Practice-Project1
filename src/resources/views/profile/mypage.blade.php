@@ -23,7 +23,7 @@
 
     <nav class="mypage-tabs" role="tablist" aria-label="マイページタブ">
         <button type="button" id="tab-listed" class="mypage-tabs-tab" role="tab" aria-selected="true" aria-controls="panel-listed" tabindex="0">出品した商品</button>
-        <button type="button" id="tab-orders" class="mypage-tabs-tab" role="tab" aria-selected="false" aria-controls="panel-orders" tabindex="-1">購入した商品</button>
+        <button type="button" id="" class="mypage-tabs-tab" role="tab" aria-selected="false" aria-controls="panel-orders" tabindex="-1">購入した商品</button>
     </nav>
     <hr>
 

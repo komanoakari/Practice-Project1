@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="register-form">
+<div>
     <h2 class="register-form-heading">会員登録</h2>
     <div class="register-form-inner">
         <form action="/register" class="register-form-form" method="post">

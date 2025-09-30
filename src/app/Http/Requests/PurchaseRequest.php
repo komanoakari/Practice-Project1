@@ -43,7 +43,7 @@ class PurchaseRequest extends FormRequest
         return [
             'payment_method.required' => '支払い方法を選択してください',
             'shipping_postal_code.required' => '郵便番号を入力してください',
-            'shipping_postal_code.address' => '配送先を指定してください',
+            'shipping_address.required' => '配送先を指定してください',
         ];
     }
 }

@@ -10,14 +10,14 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->string('name');
             $table->string('brand')->nullable();
             $table->integer('price');
             $table->string('image');
             $table->text('description');
             $table->string('condition');
-            $table->timestamp('created_at')->useCurrent()->nullable();
-            $table->timestamp('updated_at')->useCurrent()->nullable();
+            $table->timestamps();
         });
     }
 

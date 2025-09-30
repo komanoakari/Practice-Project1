@@ -12,12 +12,11 @@ class CreateProfilesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('user_name');
-            $table->string('postal_code')->nullable();
-            $table->string('address')->nullable();
+            $table->string('postal_code');
+            $table->string('address');
             $table->string('building')->nullable();
             $table->string('image')->nullable();
-            $table->timestamp('created_at')->useCurrent()->nullable();
-            $table->timestamp('updated_at')->useCurrent()->nullable();
+            $table->timestamps();
         });
     }
 

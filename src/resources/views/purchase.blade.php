@@ -76,7 +76,7 @@
                             </tr>
                             <tr>
                                 <th>支払い方法</th>
-                                <td id="summary-payment">未選択</td>
+                                <td id="summary-payment">{{ old('payment_method', '未選択') }}</td>
                             </tr>
                         </table>
                         <button type="submit" class="purchase-btn">購入する</button>
