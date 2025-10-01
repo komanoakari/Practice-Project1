@@ -3,6 +3,13 @@ src/node_modules/
 src/public/hot
 src/public/storage
 
+vendor/
+node_modules/
+
+/public/mix-manifest.json
+/public/build/
+/bootstrap/cache/*.php
+
 **/storage/*.key
 !**/storage/app/public/
 
