@@ -1,6 +1,7 @@
-# 模擬案件_フリマアプリ
+# 模擬案件\_フリマアプリ
+
 模擬案件フリマアプリ（Laravel 8 + MySQL）。
-商品一覧/詳細/検索、出品、いいね、コメント、購入フロー（模擬Stripe。Webhookなし、successで支払い確認）を実装しています。
+商品一覧/詳細/検索、出品、いいね、コメント、購入フロー（模擬 Stripe。Webhook なし、success で支払い確認）を実装しています。
 
 ## 環境構築
 
@@ -39,7 +40,7 @@ MAIL_FROM_ADDRESS=noreply@example.test
 MAIL_FROM_NAME="${APP_NAME}"
 
 # 画像を使う場合
-FILESYSTEM_DISK=public
+FILESYSTEM_DRIVER=public
 ```
 
 5. .env を編集したら反映
@@ -98,9 +99,15 @@ composer require stripe/stripe-php
 - Username: laravel_user
 - Password: laravel_pass
 
-## ログイン用テストアカウント
+## ログイン用テストアカウント（Seeder で作成）
 
-Seeder で作成されます。新規登録なしでログイン可能。
+まずはテスト用の環境変数を用意します（`.env.testing` は **コミットしません**）。
+
+```bash
+cp src/.env.testing.example src/.env.testing
+docker compose exec php bash -lc 'php artisan key:generate --env=testing'
+docker compose exec php bash -lc 'php artisan migrate --env=testing'
+```
 
 - メール：test@example.com
 - パスワード：password
