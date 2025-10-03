@@ -107,29 +107,40 @@ php artisan storage:link
 
 ## PHPUnit テストケース
 
-### 起動
+> 起動
 
+```bash
 docker compose up -d
+```
 
-### テスト環境の.env 作成+鍵発行
+> テスト環境の.env 作成+鍵発行
 
+```bash
 cp src/.env.testing.example src/.env.testing
 docker compose exec php bash -lc 'cd src && php artisan key:generate --env=testing'
+```
 
-### テスト DB を作成
+> テスト DB を作成
 
+```bash
 docker compose exec mysql mysql -uroot -p
+```
 
 -- 以下、MySQL プロンプト内で
+
+```bash
 CREATE DATABASE IF NOT EXISTS laravel_db_testing
 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 GRANT ALL PRIVILEGES ON laravel_db_testing.\* TO 'laravel_user'@'%';
 FLUSH PRIVILEGES;
 EXIT;
+```
 
-### テスト実行
+> テスト実行
 
+```bash
 docker compose exec php bash -lc 'cd src && php artisan test'
+```
 
 ## ログイン用テストアカウント（Seeder で作成済み）
 
