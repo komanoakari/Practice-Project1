@@ -107,16 +107,16 @@ php artisan storage:link
 
 ## PHPUnit テストケース
 
-# 起動
+### 起動
 
 docker compose up -d
 
-# テスト環境の.env 作成+鍵発行
+### テスト環境の.env 作成+鍵発行
 
 cp src/.env.testing.example src/.env.testing
 docker compose exec php bash -lc 'cd src && php artisan key:generate --env=testing'
 
-# テスト DB を作成
+### テスト DB を作成
 
 docker compose exec mysql mysql -uroot -p
 
@@ -127,7 +127,7 @@ GRANT ALL PRIVILEGES ON laravel_db_testing.\* TO 'laravel_user'@'%';
 FLUSH PRIVILEGES;
 EXIT;
 
-# テスト実行
+### テスト実行
 
 docker compose exec php bash -lc 'cd src && php artisan test'
 
