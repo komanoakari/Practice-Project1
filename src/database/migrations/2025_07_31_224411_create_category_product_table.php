@@ -8,12 +8,10 @@ class CreateCategoryProductTable extends Migration
 {
     public function up()
     {
-       Schema::create('category_product', function (Blueprint $table) {
-            $table->id();
+        Schema::create('category_product', function (Blueprint $table) {
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
-            $table->timestamps();
-});
+        });
     }
 
     public function down()

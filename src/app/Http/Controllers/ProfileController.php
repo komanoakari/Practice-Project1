@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
-use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Profile;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +16,13 @@ class ProfileController extends Controller
 
         $profile = Profile::firstOrCreate(
             ['user_id' => $user->id],
-            ['user_name' => $user->name],
+            [
+                'user_name' => $user->name,
+                'postal_code' => '',
+                'address' => '',
+                'building' => '',
+                'image' => null,
+            ],
         );
         return view('profile.edit', compact('user','profile'));
     }
@@ -26,7 +31,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $data = $request->validated();
-
 
         if ($request->hasFile('image')) {
             $old = optional($user->profile)->image;
@@ -47,25 +51,23 @@ class ProfileController extends Controller
         return redirect()->route('profile.show')->with('status', 'プロフィールを更新しました');
     }
 
-    public function show()
+    public function show(Request $request)
     {
         $user = Auth::user();
+        $profile = $user->profile;
 
-        $listedProducts = $user->products()
-            ->latest()
-            ->paginate(8);
+        $tab = $request->query('page', 'sell');
 
         $orders = $user->orders()
             ->where('status', 'paid')
             ->with('product')
             ->orderByDesc('paid_at')
-            ->paginate(8);
+            ->get();
 
-        return view('profile.mypage', [
-            'user' => $user,
-            'profile' => $user->profile,
-            'listedProducts' => $listedProducts,
-            'orders' => $orders,
-        ]);
+        $listedProducts = $user->products()
+            ->latest()
+            ->get();
+
+        return view('profile.mypage', compact('user', 'profile', 'tab', 'orders', 'listedProducts'));
     }
 }

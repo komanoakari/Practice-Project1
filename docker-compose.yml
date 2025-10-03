@@ -10,9 +10,10 @@ services:
       - php
 
   php:
+    working_dir: /var/www
     build: ./docker/php
     volumes:
-      - ./src:/var/www/
+      - ./:/var/www/
 
   mysql:
     image: mysql:8.0.26

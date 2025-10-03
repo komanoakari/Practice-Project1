@@ -6,19 +6,19 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CommentRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'body' => ['required', 'max:255'],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'body.required' => '入力してください',

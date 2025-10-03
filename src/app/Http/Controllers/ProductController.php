@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -23,14 +22,11 @@ class ProductController extends Controller
                 });
             })
             ->latest()
-            ->paginate(12);
+            ->get();
 
         $mylistedProducts = Auth::check()
-            ? Auth::user()->mylistProducts()
-                ->with('order')
-                ->latest()
-                ->paginate(12)
-            : null;
+            ? Auth::user()->mylistProducts()->with('order')->latest()->get()
+            : collect();
 
         return view('list', compact('products', 'mylistedProducts', 'tab'));
     }

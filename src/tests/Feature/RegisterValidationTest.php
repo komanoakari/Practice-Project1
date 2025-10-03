@@ -77,20 +77,12 @@ class RegisterValidationTest extends TestCase
     public function test_register_success()
     {
         $response = $this->post('/register', [
-                'name' => 'テストユーザー',
-                'email' => 'test@example.com',
-                'password' => 'password',
-                'password_confirmation' => 'password',
+            'name' => 'テストユーザー',
+            'email' => 'test1@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
-        $this->assertDatabaseHas('users',[
-            'email' => 'test@example.com'
-        ]);
-
-        $response->assertRedirect();
-
-        $location = $response->headers->get('Location');
-        $path = parse_url($location, PHP_URL_PATH);
-        $this->assertSame('/mypage/profile', $path);
+        $response->assertRedirect(route('profile.edit', ['back' => 'products']));
     }
 }

@@ -95,7 +95,7 @@ class PurchaseTest extends TestCase
         $this->actingAs($buyer);
 
         $product = Product::forceCreate([
-            'name' => 'テスト商品A',
+            'name' => '購入した商品A',
             'brand' => 'ブランド名',
             'price' => 3000,
             'image' => 'a.jpg',
@@ -113,8 +113,9 @@ class PurchaseTest extends TestCase
             ->post(route('purchase.store', $product), ['payment_method' => 'コンビニ支払い'])
             ->assertRedirect('/');
 
-        $response = $this->get('/mypage')->assertOk();
-
-        $response->assertSee('テスト商品A')->assertSee('Sold');
+        $this->get('/mypage?page=buy')
+            ->assertOk()
+            ->assertSee('購入した商品A', false)
+            ->assertSee('Sold', false);
     }
 }

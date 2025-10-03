@@ -19,8 +19,6 @@ use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Contracts\LogoutResponse;
 
-use App\Http\Requests\LoginRequest;
-
 class FortifyServiceProvider extends ServiceProvider
 {
     public function register(): void
@@ -43,7 +41,7 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
-        $this->app->singleton(LoginResponse::class, function() {
+        $this->app->singleton(LoginResponse::class, function () {
             return new class implements LoginResponse {
                 public function toResponse($request)
                 {
@@ -52,7 +50,7 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
-        $this->app->singleton(RegisterResponse::class, function() {
+        $this->app->singleton(RegisterResponse::class, function () {
             return new class implements RegisterResponse {
                 public function toResponse($request)
                 {
@@ -61,7 +59,7 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
-        $this->app->singleton(LogoutResponse::class, function() {
+        $this->app->singleton(LogoutResponse::class, function () {
             return new class implements LogoutResponse {
                 public function toResponse($request)
                 {
@@ -84,7 +82,8 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $throttleKey = Str::transliterate(
+                Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
             return Limit::perMinute(5)->by($throttleKey);
         });
 

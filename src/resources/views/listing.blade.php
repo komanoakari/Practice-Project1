@@ -19,12 +19,9 @@
                     </label>
                     <input type="file" name="image" id="image" class="image-input" accept="image/*" style="display: none;">
                 </div>
-
-                <p class="listing-form-error">
-                    @error('image')
-                    {{ $message }}
-                    @enderror
-                </p>
+                @error('image')
+                    <p class="listing-form-error">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="listing-detail-title">商品の詳細</div>
@@ -37,11 +34,9 @@
                         <label for="cat-{{ $category->id }}" class="chip">{{ $category->name }}</label>
                     @endforeach
                 </div>
-                <p class="listing-form-error">
-                    @error('category')
-                    {{ $message }}
-                    @enderror
-                </p>
+                @error('category')
+                    <p class="listing-form-error">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="listing-form-group">
@@ -55,11 +50,9 @@
                         <option value="状態が悪い">状態が悪い</option>
                     </select>
                 </div>
-                <p class="listing-form-error">
-                    @error('condition')
-                    {{ $message }}
-                    @enderror
-                </p>
+                @error('condition')
+                    <p class="listing-form-error">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="listing-detail-title">商品名と説明</div>
@@ -67,11 +60,9 @@
             <div class="listing-form-group">
                 <label for="name" class="listing-form-label">商品名</label>
                 <input type="text" name="name" id="name" class="listing-form-input" value="{{ old('name') }}">
-                <p class="listing-form-error">
-                    @error('name')
-                    {{ $message }}
-                    @enderror
-                </p>
+                @error('name')
+                    <p class="listing-form-error">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="listing-form-group">
@@ -82,11 +73,9 @@
             <div class="listing-form-group">
                 <label for="description" class="listing-form-label">商品の説明</label>
                 <textarea name="description" id="description" class="listing-form-input" >{{ old('description') }}</textarea>
-                <p class="listing-form-error">
-                    @error('description')
-                    {{ $message }}
-                    @enderror
-                </p>
+                @error('description')
+                    <p class="listing-form-error">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="listing-form-group">
@@ -95,11 +84,9 @@
                     <span class="yen">¥</span>
                     <input type="number" name="price" id="price" class="listing-form-input" value="{{ old('price') }}" min="0" step="1">
                 </div>
-                <p class="listing-form-error">
-                    @error('price')
-                    {{ $message }}
-                    @enderror
-                </p>
+                @error('price')
+                    <p class="listing-form-error">{{ $message }}</p>
+                @enderror
             </div>
 
             <input type="submit" class="listing-form-btn" value="出品する">
@@ -108,32 +95,31 @@
 
     <script>
     document.getElementById('image').addEventListener('change', (e) => {
-    const preview = document.getElementById('preview');
-    const box = preview.closest('.image-box'); // 親ラベル
-    preview.innerHTML = '';
+        const preview = document.getElementById('preview');
+        const box = preview.closest('.image-box');
+        preview.innerHTML = '';
 
-    const file = e.target.files?.[0];
-    if (!file) {
-        box.classList.remove('has-image');
-        return;
-    }
-    if (!file.type.startsWith('image/')) {
-        preview.innerHTML = '<p>画像ファイルを選択してください。</p>';
-        e.target.value = '';
-        box.classList.remove('has-image');
-        return;
-    }
+        const file = e.target.files?.[0];
+        if (!file) {
+            box.classList.remove('has-image');
+            return;
+        }
+        if (!file.type.startsWith('image/')) {
+            preview.innerHTML = '<p>画像ファイルを選択してください。</p>';
+            e.target.value = '';
+            box.classList.remove('has-image');
+            return;
+        }
 
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-        const img = document.createElement('img');
-        img.src = ev.target.result;
-        preview.appendChild(img);
-        box.classList.add('has-image');  // ← テキストを隠す
-    };
-    reader.readAsDataURL(file);
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const img = document.createElement('img');
+            img.src = ev.target.result;
+            preview.appendChild(img);
+            box.classList.add('has-image');
+        };
+        reader.readAsDataURL(file);
     });
     </script>
-    </div>
 </div>
 @endsection

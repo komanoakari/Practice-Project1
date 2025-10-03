@@ -18,8 +18,17 @@
 
 1. `docker compose exec php bash`
 2. `composer install`
-3. `cp .env.example .env`
-4. .env に以下の環境変数を追加
+3. `cp src/.env.example src/.env`
+
+4. Stripe（カード決済）を試す場合
+
+```bash
+composer require stripe/stripe-php
+```
+
+> Stripe ダッシュボード（テストモード）で API キーを取得し、src/.env に設定。
+
+5. .env に以下の環境変数を追加
 
 ```text
 APP_URL=http://localhost:8016
@@ -41,12 +50,10 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 # 画像を使う場合
 FILESYSTEM_DRIVER=public
-```
 
-5. .env を編集したら反映
-
-```bash
-php artisan config:clear
+# Stripe
+STRIPE_KEY=pk_test_********
+STRIPE_SECRET=sk_test_********
 ```
 
 6. アプリケーションキーの作成
@@ -55,13 +62,19 @@ php artisan config:clear
 php artisan key:generate
 ```
 
-7. マイグレーション & 初期データ投入
+7. .env を編集したら反映
+
+```bash
+php artisan config:clear
+```
+
+8. マイグレーション & 初期データ投入
 
 ```bash
 php artisan migrate --seed
 ```
 
-8. 画像を使う場合は公開リンク作成
+9. 画像を使う場合は公開リンク作成
 
 ```bash
 php artisan storage:link
@@ -79,13 +92,6 @@ php artisan storage:link
 - Docker Desktop（Compose v2）
 - Git
 
-## 決済（Stripe）を使う場合
-
-```bash
-docker compose exec php bash
-composer require stripe/stripe-php
-```
-
 ## URL
 
 - 開発環境: http://localhost:8016/
@@ -99,18 +105,47 @@ composer require stripe/stripe-php
 - Username: laravel_user
 - Password: laravel_pass
 
-## ログイン用テストアカウント（Seeder で作成）
+## PHPUnit テストケース
 
-まずはテスト用の環境変数を用意します（`.env.testing` は **コミットしません**）。
+# 起動
 
-```bash
+docker compose up -d
+
+# テスト環境の.env 作成+鍵発行
+
 cp src/.env.testing.example src/.env.testing
-docker compose exec php bash -lc 'php artisan key:generate --env=testing'
-docker compose exec php bash -lc 'php artisan migrate --env=testing'
-```
+docker compose exec php bash -lc 'cd src && php artisan key:generate --env=testing'
+
+# テスト DB を作成
+
+docker compose exec mysql mysql -uroot -p
+
+-- 以下、MySQL プロンプト内で
+CREATE DATABASE IF NOT EXISTS laravel_db_testing
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT ALL PRIVILEGES ON laravel_db_testing.\* TO 'laravel_user'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+
+# テスト実行
+
+docker compose exec php bash -lc 'cd src && php artisan test'
+
+## ログイン用テストアカウント（Seeder で作成済み）
 
 - メール：test@example.com
 - パスワード：password
+
+## カード決済（Stripe）のテスト方法
+
+> テストモードの API キーとテストカードを使用してください。
+
+### チェック方法
+
+1. 商品詳細 → **購入手続きへ**
+2. 支払い方法を **「カード支払い」**にする
+3. Stripe Checkout でテストカードを入力
+   - 成功：`4242 4242 4242 4242` （有効期限＝未来 / CSV 任意）
 
 ## ER 図
 
