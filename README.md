@@ -17,16 +17,18 @@
 > `.env` は `./src/.env` に置きます。
 
 1. `docker compose exec php bash`
-2. `composer install`
-3. `cp src/.env.example src/.env`
+2. `cd src`
+3. `composer install`
+4. 「.env.example」を「.env」にコピー
+   `cp .env.example .env`
 
-4. Stripe（カード決済）を試す場合
+5. Stripe（カード決済）を試す場合
 
 ```bash
 composer require stripe/stripe-php
 ```
 
-> Stripe ダッシュボード（テストモード）で API キーを取得し、src/.env に設定。
+> Stripe ダッシュボード（テストモード）で API キーを取得し、.env に追加。
 
 5. .env に以下の環境変数を追加
 
@@ -95,8 +97,8 @@ php artisan storage:link
 ## URL
 
 - 開発環境: http://localhost:8016/
-- phpMyAdmin: http://localhost:8017/（**Server** は `mysql`）
-- MailHog（受信 BOX）: http://localhost:8025/（**SMTP** は `mailhog:1025`）
+- phpMyAdmin: http://localhost:8017/（Server は `mysql`）
+- MailHog（受信 BOX）: http://localhost:8025/（SMTP は `mailhog:1025`）
 
 ## phpMyAdmin ログイン
 
