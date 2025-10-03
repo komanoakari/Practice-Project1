@@ -129,7 +129,7 @@ docker compose exec mysql mysql -uroot -p
 ```bash
 CREATE DATABASE IF NOT EXISTS laravel_db_testing
 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-GRANT ALL PRIVILEGES ON laravel_db_testing.\* TO 'laravel_user'@'%';
+GRANT ALL PRIVILEGES ON `laravel_db_testing`.* TO 'laravel_user'@'%';
 FLUSH PRIVILEGES;
 EXIT;
 ```
@@ -151,8 +151,8 @@ docker compose exec php bash -lc 'cd src && php artisan test'
 
 ### チェック方法
 
-1. 商品詳細 → **購入手続きへ**
-2. 支払い方法を **「カード支払い」**にする
+1. 商品詳細 → 購入手続きへ
+2. 支払い方法を 「カード支払い」にする
 3. Stripe Checkout でテストカードを入力
    - 成功：`4242 4242 4242 4242` （有効期限＝未来 / CSV 任意）
 
