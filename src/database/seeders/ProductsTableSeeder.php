@@ -9,11 +9,9 @@ class ProductsTableSeeder extends Seeder
 {
     public function run()
     {
-        $uids = DB::table('users')->pluck('id');
-
         DB::table('products')->insert([
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => '腕時計',
                 'brand' => 'Rolax',
                 'price' => 15000,
@@ -24,7 +22,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => 'HDD',
                 'brand' => '西芝',
                 'price' => 5000,
@@ -35,7 +33,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => '玉ねぎ3束',
                 'brand' => null,
                 'price' => 300,
@@ -46,7 +44,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => '革靴',
                 'brand' => null,
                 'price' => 4000,
@@ -57,7 +55,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => 'ノートPC',
                 'brand' => null,
                 'price' => 45000,
@@ -68,7 +66,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => 'マイク',
                 'brand' => null,
                 'price' => 8000,
@@ -79,7 +77,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => 'ショルダーバッグ',
                 'brand' => null,
                 'price' => 3500,
@@ -90,7 +88,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => 'タンブラー',
                 'brand' => null,
                 'price' => 500,
@@ -101,7 +99,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => 'コーヒーミル',
                 'brand' => 'Starbacks',
                 'price' => 4000,
@@ -112,7 +110,7 @@ class ProductsTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => $uids->random(),
+                'user_id' => null,
                 'name' => 'メイクセット',
                 'brand' => null,
                 'price' => 2500,

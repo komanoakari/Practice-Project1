@@ -62,23 +62,19 @@ STRIPE_SECRET=sk_test_********
 
 ```bash
 php artisan key:generate
-```
-
-7. .env を編集したら反映
-
-```bash
 php artisan config:clear
 ```
 
-8. マイグレーション & 初期データ投入
+7. マイグレーション & 初期データ投入 & 画像の配置
 
 ```bash
 php artisan migrate --seed
-```
 
-9. 画像を使う場合は公開リンク作成
+# サンプル画像をstorage側にコピー
+mkdir -p storage/app/public/images
+cp -a public/images/. storage/app/public/images/
 
-```bash
+# 公開リンク作成
 php artisan storage:link
 ```
 
