@@ -22,7 +22,7 @@ class MylistTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $a = Product::forceCreate([
+        $liked = Product::forceCreate([
             'name' => 'いいねした商品',
             'price' => 4000,
             'description' => '説明',
@@ -30,7 +30,7 @@ class MylistTest extends TestCase
             'condition' => '良好',
         ]);
 
-        $b = Product::forceCreate([
+        $notliked = Product::forceCreate([
             'name' => 'いいねしていない商品',
             'price' => 4000,
             'description' => '説明',
@@ -38,15 +38,12 @@ class MylistTest extends TestCase
             'condition' => '良好',
         ]);
 
-        $user->mylistProducts()->syncWithoutDetaching([$a->id]);
+        $user->mylistProducts()->syncWithoutDetaching([$liked->id]);
 
-        $response = $this->get('/')->assertOk();
-        $mylisted = $response->viewData('mylistedProducts');
-
-        $names = collect($mylisted->items())->pluck('name')->all();
-
-        $this->assertContains('いいねした商品', $names);
-        $this->assertNotContains('いいねしてない商品', $names);
+        $this->get('/?tab=mylist')
+            ->assertOk()
+            ->assertSee('いいねした商品', false)
+            ->assertDontSee('いいねしていない商品', false);
     }
 
         public function test_mylist_marks_sold_products()
@@ -79,14 +76,10 @@ class MylistTest extends TestCase
             'updated_at' => now(),
         ]);
 
-        $response = $this->get('/')->assertOk();
-        $mylist = $response->viewData('mylistedProducts');
-        $item = collect($mylist->items())->firstWhere('id', $a->id);
-
-        $this->assertNotNull($item);
-        $this->assertTrue($item->is_sold);
-
-        $response->assertSee('いいねした商品')->assertSee('Sold');
+        $this->get('/?tab=mylist')
+            ->assertOk()
+            ->assertSee('いいねした商品',false)
+            ->assertSee('Sold', false);
     }
 
     public function test_guest_mylist_products()
@@ -97,7 +90,7 @@ class MylistTest extends TestCase
             'password' => Hash::make('password'),
         ]);
 
-        $p = Product::forceCreate([
+        $liked = Product::forceCreate([
             'name' => 'いいねした商品',
             'price' => 4000,
             'description' => '説明',
@@ -105,14 +98,12 @@ class MylistTest extends TestCase
             'condition' => '良好',
         ]);
 
-        $someone->mylistProducts()->syncWithoutDetaching([$p->id]);
+        $someone->mylistProducts()->syncWithoutDetaching([$liked->id]);
 
         $this->assertGuest();
 
-        $response = $this->get('/')->assertOk();
-
-        $this->assertNull($response->viewData('mylistedProducts'));
-
-        $response->assertSee('マイリストを見るにはログインしてください');
+        $this->get('/?tab=mylist')
+            ->assertOk()
+            ->assertSee('マイリストを見るにはログインしてください', false);
     }
 }

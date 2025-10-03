@@ -29,6 +29,18 @@ class PurchaseController extends Controller
 
     public function store(PurchaseRequest $request, Product $product)
     {
+        if ($product->user_id === auth()->id()) {
+            return redirect()
+                ->route('products.show', $product)
+                ->with('status', 'ご自身の商品は購入できません');
+        }
+
+        if ($product->is_sold) {
+            return redirect()
+                ->route('products.show', $product)
+                ->with('status', 'この商品はすでに売り切れです');
+        }
+
         $profile = Auth::user()->profile;
 
         $profileShipping = [
@@ -56,9 +68,6 @@ class PurchaseController extends Controller
                 'paid_at' => now(),
             ]);
 
-        $product->is_sold = true;
-        $product->save();
-
         session()->forget('checkout.shipping');
 
         return redirect('/')->with('status', 'コンビニ払いで購入を完了しました');
@@ -73,18 +82,18 @@ class PurchaseController extends Controller
                 'price_data' => [
                     'currency' => 'jpy',
                     'product_data' => ['name' => $product->name],
-                    'unit_amount' => $product->price,
+                    'unit_amount' => (int) $product->price,
                 ],
                 'quantity' => 1,
             ]],
 
             'success_url' => route('checkout.success',['order' => $order->id]) . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('checkout.cancel', ['order' => $order->id]),
-            ]);
+        ]);
 
-            $order->update(['stripe_session_id' => $session->id]);
+        $order->update(['stripe_session_id' => $session->id]);
 
-            return redirect()->away($session->url);
+        return redirect()->away($session->url);
     }
 
     public function success(Request $request, Order $order)
@@ -94,7 +103,12 @@ class PurchaseController extends Controller
         }
 
         $sid = $request->query('session_id');
-        if (!$sid) {
+
+        if (empty($sid)) {
+            return redirect('/')->withErrors('決済確認に失敗しました');
+        }
+
+        if ($sid !== $order->stripe_session_id) {
             return redirect('/')->withErrors('決済確認に失敗しました');
         }
 
@@ -106,11 +120,6 @@ class PurchaseController extends Controller
                 'status' => 'paid',
                 'paid_at' => now(),
             ]);
-
-            if ($product = Product::find($order->product_id)) {
-                $product->is_sold = true;
-                $product->save();
-            }
 
             session()->forget('checkout.shipping');
             return redirect('/')->with('status', '商品を購入しました');
@@ -142,10 +151,10 @@ class PurchaseController extends Controller
     public function update(AddressRequest $request, Product $product)
     {
         $shipping = $request->only(['shipping_postal_code', 'shipping_address', 'shipping_building']);
-        session(['checkout.shipping'=> $shipping]);
+        session(['checkout.shipping' => $shipping]);
 
         return redirect()
             ->route('purchase.create',  ['product' => $product->id])
-            ->with('success', '住所を更新しました');
+            ->with('status', '住所を更新しました');
     }
 }

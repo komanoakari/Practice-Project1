@@ -40,7 +40,7 @@ class SearchTest extends TestCase
     {
         $user = User::forceCreate([
             'name' => 'user',
-            'email' => 'test@example.com',
+            'email' => 'test2@example.com',
             'password' => Hash::make('password'),
         ]);
 

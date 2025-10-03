@@ -14,16 +14,11 @@ class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
 
-    /**
-     * Validate and create a newly registered user.
-     *
-     * @param  array<string, string>  $input
-     */
     public function create(array $input): User
     {
         $request = new RegisterRequest();
         $request->merge($input);
-        
+
         Validator::make(
             $input,
             $request->rules(),

@@ -61,6 +61,7 @@ hr {
 }
 
 .mypage-tabs-tab {
+    text-decoration: none;
     background: none;
     border: none;
     font-size: 24px;
@@ -71,7 +72,7 @@ hr {
     -webkit-appearance: none;
 }
 
-.mypage-tabs-tab[aria-selected="true"]{
+.mypage-tabs-tab.active {
     color:#FF0000;
 }
 
@@ -125,12 +126,6 @@ hr {
     grid-column: 1 / -1;
     text-align: center;
     font-size: 32px;
-}
-
-.mypage-product-paginate {
-    margin-top: 24px;
-    display: flex;
-    justify-content: center;
 }
 
 .mypage-panels-panel {

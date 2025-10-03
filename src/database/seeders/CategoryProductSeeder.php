@@ -5,14 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-
 class CategoryProductSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $pids = DB::table('products')->pluck('id');
@@ -22,8 +16,6 @@ class CategoryProductSeeder extends Seeder
             DB::table('category_product')->insert([
                 'product_id' => $pid,
                 'category_id' => $cids->random(),
-                'created_at' =>now(),
-                'updated_at' => now(),
             ]);
         }
     }

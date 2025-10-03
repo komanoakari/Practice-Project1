@@ -9,7 +9,9 @@
 </head>
 <body>
     <header class="header">
-        <img src="{{ asset('images/logo.svg') }}" alt="ロゴ画像">
+        <a href="{{ route('products.index') }}">
+            <img src="{{ asset('images/logo.svg') }}" alt="ロゴ画像">
+        </a>
     </header>
     <main>
         @yield('content')

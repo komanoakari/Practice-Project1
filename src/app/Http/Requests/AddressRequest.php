@@ -6,12 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AddressRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'shipping_postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'],
@@ -19,7 +19,7 @@ class AddressRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'shipping_postal_code.required' => '郵便番号を入力してください',

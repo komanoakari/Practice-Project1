@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    public function likes(Product $product) 
+    public function likes(Product $product)
     {
         return response()->json([
             'likes_count' => $product->wishlistBy()->count(),
             'liked' => auth()->check()
-                ? $product->wishlistBy()->where('user_id', auth()->id())->exists()
+                ? $product->wishlistBy()->wherePivot('user_id', auth()->id())->exists()
                 : false
         ]);
     }

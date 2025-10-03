@@ -9,7 +9,10 @@
 </head>
 <body>
     <header class="header">
-        <img src="{{ asset('images/logo.svg') }}" alt="ロゴ画像">
+        <a href="{{ route('products.index') }}">
+            <img src="{{ asset('images/logo.svg') }}" alt="ロゴ画像">
+        </a>
+
         <form action="{{ route('search') }}" method="GET" class="header-search" role="search">
             <input type="text" name="q" value="{{ request('q') }}" placeholder="なにをお探しですか？" class="header-search-input">
         </form>
@@ -33,15 +36,15 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-            const input = document.querySelector('.header-search-input');
-            if (!input) return;
+                const input = document.querySelector('.header-search-input');
+                if (!input) return;
 
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.isComposing) {
-                e.preventDefault();
-                input.form && input.form.submit();
-                }
-            });
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.isComposing) {
+                    e.preventDefault();
+                    input.form && input.form.submit();
+                    }
+                });
             });
         </script>
     </header>

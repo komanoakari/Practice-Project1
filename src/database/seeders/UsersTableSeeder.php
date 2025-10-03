@@ -10,7 +10,7 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('users')->upsert(
+        DB::table('users')->insert(
             [
                 [
                     'name' => 'テストユーザー',
@@ -45,8 +45,6 @@ class UsersTableSeeder extends Seeder
                     'updated_at' => now(),
                 ],
             ],
-            ['email'],
-            ['name','password','email_verified_at','updated_at']
         );
     }
 }

@@ -33,9 +33,9 @@
                             <div class="payment-options">
                                 <div class="select-wrap">
                                     <select name="payment_method" class="payment-option-select" id="payment_method" required>
-                                        <option value="" disabled {{ old('payment_method') ? '' : 'selected' }} hidden>選択してください</option>
-                                        <option value="コンビニ支払い" {{ old('payment_method') === 'コンビニ支払い' ? 'selected' : '' }}>コンビニ支払い</option>
-                                        <option value="カード支払い" {{ old('payment_method') === 'カード支払い'   ? 'selected' : '' }}>カード支払い</option>
+                                        <option value="" hidden @selected(!old('payment_method'))>選択してください</option>
+                                        <option value="コンビニ支払い" @selected(old('payment_method') === 'コンビニ支払い')>コンビニ支払い</option>
+                                        <option value="カード支払い" @selected(old('payment_method') === 'カード支払い')>カード支払い</option>
                                     </select>
                                     @error('payment_method')
                                         <div class="payment-error-message">{{ $message }}</div>
