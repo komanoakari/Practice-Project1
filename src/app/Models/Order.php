@@ -20,6 +20,11 @@ class Order extends Model
         'status',
         'stripe_session_id',
         'paid_at',
+        'completed_at',
+    ];
+
+    protected $casts = [
+        'completed_at' => 'datetime',
     ];
 
     public function user() {
@@ -28,5 +33,25 @@ class Order extends Model
 
     public function product() {
         return $this->belongsTo(Product::class);
+    }
+
+    public function transactionMessages()
+    {
+        return $this->hasMany(TransactionMessage::class);
+    }
+
+    public function unreadMessagesCount()
+    {
+        return $this->transactionMessages()
+            ->where('user_id', '!=', auth()->id())
+            ->whereNull('read_at')
+            ->count();
+    }
+
+    public function partner()
+    {
+        return $this->user_id === auth()->id()
+            ? $this->product->user->profile
+            : $this->user->profile;
     }
 }

@@ -69,4 +69,9 @@ class User extends Authenticatable implements MustVerifyEmailContract
     {
         return $this->hasMany(Order::class);
     }
+
+    public function transactionMessages()
+    {
+        return $this->hasMany(TransactionMessage::class);
+    }
 }

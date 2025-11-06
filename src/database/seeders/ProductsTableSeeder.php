@@ -3,15 +3,18 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Product;
 
 class ProductsTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('products')->insert([
-            [
-                'user_id' => null,
+        $user1 = User::where('email', 'test1@example.com')->first();
+
+        if($user1) {
+            Product::create([
+                'user_id' => $user1->id,
                 'name' => '腕時計',
                 'brand' => 'Rolax',
                 'price' => 15000,
@@ -20,9 +23,10 @@ class ProductsTableSeeder extends Seeder
                 'condition' => '良好',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+            
+            Product::create([
+                'user_id' => $user1->id,
                 'name' => 'HDD',
                 'brand' => '西芝',
                 'price' => 5000,
@@ -30,10 +34,10 @@ class ProductsTableSeeder extends Seeder
                 'description' => '高速で信頼性の高いハードディスク',
                 'condition' => '目立った傷や汚れなし',
                 'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+            
+            Product::create([
+                'user_id' => $user1->id,
                 'name' => '玉ねぎ3束',
                 'brand' => null,
                 'price' => 300,
@@ -42,9 +46,10 @@ class ProductsTableSeeder extends Seeder
                 'condition' => 'やや傷や汚れあり',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+            
+            Product::create([
+                'user_id' => $user1->id,
                 'name' => '革靴',
                 'brand' => null,
                 'price' => 4000,
@@ -53,9 +58,10 @@ class ProductsTableSeeder extends Seeder
                 'condition' => '状態が悪い',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+            
+            Product::create([
+                'user_id' => $user1->id,
                 'name' => 'ノートPC',
                 'brand' => null,
                 'price' => 45000,
@@ -64,9 +70,14 @@ class ProductsTableSeeder extends Seeder
                 'condition' => '良好',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+        }
+
+        $user2 = User::where('email', 'test2@example.com')->first();
+
+        if($user2) {
+            Product::create([
+            'user_id' => $user2->id,
                 'name' => 'マイク',
                 'brand' => null,
                 'price' => 8000,
@@ -75,9 +86,10 @@ class ProductsTableSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+
+            Product::create([
+                'user_id' => $user2->id,
                 'name' => 'ショルダーバッグ',
                 'brand' => null,
                 'price' => 3500,
@@ -86,9 +98,10 @@ class ProductsTableSeeder extends Seeder
                 'condition' => 'やや傷や汚れあり',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+
+            Product::create([
+                'user_id' => $user2->id,
                 'name' => 'タンブラー',
                 'brand' => null,
                 'price' => 500,
@@ -97,9 +110,10 @@ class ProductsTableSeeder extends Seeder
                 'condition' => '状態が悪い',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+
+            Product::create([
+                'user_id' => $user2->id,
                 'name' => 'コーヒーミル',
                 'brand' => 'Starbacks',
                 'price' => 4000,
@@ -108,9 +122,10 @@ class ProductsTableSeeder extends Seeder
                 'condition' => '良好',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'user_id' => null,
+            ]);
+
+            Product::create([
+                'user_id' => $user2->id,
                 'name' => 'メイクセット',
                 'brand' => null,
                 'price' => 2500,
@@ -119,7 +134,7 @@ class ProductsTableSeeder extends Seeder
                 'condition' => '目立った傷や汚れなし',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-        ]);
+            ]);
+        }
     }
 }

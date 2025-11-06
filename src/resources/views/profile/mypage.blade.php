@@ -27,6 +27,9 @@
         <nav class="mypage-tabs">
             <a href="{{ route('profile.show', ['page' => 'sell']) }}" class="mypage-tabs-tab {{ $active === 'sell' ? 'active' : '' }}">出品した商品</a>
             <a href="{{ route('profile.show', ['page' => 'buy']) }}" class="mypage-tabs-tab {{ $active === 'buy' ? 'active' : '' }}">購入した商品</a>
+            <a href="{{ route('profile.show', ['page' => 'trade']) }}" class="mypage-tabs-tab {{ $active === 'buy' ? 'active' : '' }}">取引中の商品
+                <span class="messages">{{ $tradings->sum('unread_count') }}</span>
+            </a>
         </nav>
         <hr>
 
@@ -67,6 +70,31 @@
                             </div>
                         @empty
                             <p class="mypage-product-content">購入履歴はまだありません</p>
+                        @endforelse
+                    </div>
+                </div>
+            </section>
+
+        @elseif ($active === 'trade')
+            <section class="mypage-panels">
+                <div id="panel-orders" class="mypage-panels-panel {{ $active === 'trade' ? 'active' : '' }}">
+                    <div class="mypage-products">
+                        @forelse ($tradings as $trading)
+                            <div class="mypage-product">
+                                <a href="{{ route('trade.show', ['order' => $trading->id])}}" class="mypage-product-link">
+                                    @if($trading->unread_count > 0)
+                                        <div class="messages-count">
+                                            <p>{{ $trading->unread_count }}</p>
+                                        </div>
+                                    @endif
+                                    <img src="{{ Storage::url($trading->product->image) }}" alt="商品画像" class="mypage-product-image">
+                                    <div class="mypage-product-detail">
+                                        <p>{{ $trading->product->name }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        @empty
+                            <p class="mypage-product-content">取引中の商品はありません</p>
                         @endforelse
                     </div>
                 </div>

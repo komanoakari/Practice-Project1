@@ -13,6 +13,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\TradingController;
 
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
 
@@ -79,5 +80,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/sell', [ProductController::class, 'create'])->name('sell');
     Route::post('/sell', [ProductController::class, 'storeListing'])->name('sell.store');
+
+    Route::get('trade/{order}', [TradingController::class, 'show'])->name('trade.show');
+    Route::post('trade/{order}', [TradingController::class, 'update'])->name('trade.update');
+
+    Route::post('trade/{order}/review', [TradingController::class, 'review'])->name('trade.review');
+
+    Route::post('trade/{order}/message', [TradingController::class, 'send'])->name('message.send');
+    Route::get('trade/{order}/message/{message}/edit', [TradingController::class, 'edit'])->name('message.edit');
+    Route::post('trade/{order}/message/{message}', [TradingController::class, 'updateMessage'])->name('message.update');
+    Route::delete('trade/{order}/message/{message}', [TradingController::class, 'remove'])->name('message.remove');
 });
 

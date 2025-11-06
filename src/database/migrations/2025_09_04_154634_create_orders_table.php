@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('stripe_session_id')->nullable();
             $table->timestamps();
             $table->timestamp('paid_at')->nullable();
+            $table->timestamp('completed_at')->nullable();
         });
     }
 
