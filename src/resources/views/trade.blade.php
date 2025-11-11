@@ -164,6 +164,9 @@
                 <label data-value="5">★</label>
                 <input type="hidden" name="review" id="review-value" value="">
             </div>
+            @error('review')
+                <div class="error-message">{{ $message }}</div>
+            @enderror
             <hr>
             <div class="button-area">
                 <button type="submit" class="modal-button">送信する</button>
