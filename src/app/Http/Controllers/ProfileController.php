@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Profile;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Storage;
@@ -55,7 +56,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile;
-
         $tab = $request->query('page', 'sell');
 
         $orders = $user->orders()
@@ -68,6 +68,57 @@ class ProfileController extends Controller
             ->latest()
             ->get();
 
-        return view('profile.mypage', compact('user', 'profile', 'tab', 'orders', 'listedProducts'));
+        $tradings = $this->getActiveTrading($user);
+
+        $averageRating = $this->getAverageRating($user);
+
+        return view('profile.mypage', compact('user', 'profile', 'tab', 'orders', 'listedProducts','tradings', 'averageRating'));
+    }
+
+    private function getActiveTrading($user)
+    {
+        $buyingOrders = auth()->user()->orders()
+            ->where('status', 'paid')
+            ->whereNull('completed_at')
+            ->with('product')
+            ->get();
+
+        $sellingOrders = auth()->user()->products()
+            ->whereHas('order', function($query) {
+                $query->where('status', 'paid')
+                    ->whereNull('completed_at');
+            })
+            ->with('order')
+            ->get()
+            ->map(function($product) {
+                return $product->order;
+            });
+
+        $allTradings = $buyingOrders->concat($sellingOrders)
+            ->sortByDesc(function($order) {
+                return $order->transactionMessages()->latest()->first()?->created_at;
+            })
+            ->values();
+
+        $tradings = $allTradings->filter(function ($trading) {
+            $hasEvaluated = $trading->evaluations()
+                ->exists();
+            return !$hasEvaluated;
+        });
+
+        foreach($tradings as $trading) {
+            $trading->unread_count = $trading->unreadMessagesCount();
+        }
+        return $tradings;
+    }
+
+    private function getAverageRating($user)
+    {
+        $evaluations = $user->receivedEvaluations;
+
+        if($evaluations->isEmpty()) {
+            return null;
+        }
+        return round($evaluations->avg('rating'));
     }
 }

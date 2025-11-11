@@ -18,7 +18,7 @@
                         @if(empty($profile?->image))
                             <div class="image-placeholder"></div>
                         @else
-                            <img src="{{ Storage::url($profile->image) }}" alt="現在のプロフィール画像" class="reader-image">
+                            <img src="{{ Storage::url($profile->image) }}" alt="ユーザー画像" class="reader-image">
                         @endif
                     </div>
                     <label for="image" class="edit-form-label file-label">画像を選択する</label>
