@@ -98,7 +98,7 @@
                             <span class="product-comment-username">{{ $c->user->name }}</span>
                         </div>
                         <div class="product-comment-body">{{ $c->body }}</div>
-                    </div>
+                    </div>  
                 @endforeach
 
                 <div class="product-comment-lead">商品へのコメント</div>
