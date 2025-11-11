@@ -1,7 +1,7 @@
 # 模擬案件\_フリマアプリ
 
 模擬案件フリマアプリ（Laravel 8 + MySQL）。
-商品一覧/詳細/検索、出品、いいね、コメント、購入フロー（模擬 Stripe。Webhook なし、success で支払い確認）を実装しています。
+商品一覧/詳細/検索、出品、いいね、コメント、購入フロー、購入後の取引画面、ユーザー間評価（模擬 Stripe。Webhook なし、success で支払い確認）を実装しています。
 
 ## 環境構築
 
@@ -142,8 +142,9 @@ docker compose exec php bash -lc 'cd src && php artisan test'
 
 ## ログイン用テストアカウント（Seeder で作成済み）
 
-- メール：test@example.com
-- パスワード：password
+| ユーザー ① | `test1@example.com` | `password` |
+| ユーザー ② | `test2@example.com` | `password` |
+| ユーザー ③（何も紐づけていないユーザー） | `test3@example.com` | `password` |
 
 ## カード決済（Stripe）のテスト方法
 

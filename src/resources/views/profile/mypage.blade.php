@@ -19,7 +19,22 @@
         <header class="mypage-header">
             <img src="{{ $profile?->image ? Storage::url($profile->image) : asset('images/placeholder.png') }}" class="mypage-header-avatar">
 
-            <h2 class="mypage-header-name">{{ $profile->user_name ?? $user->name ?? 'ゲスト' }}</h2>
+            <div class="user-info">
+                <h2 class="mypage-header-name">{{ $profile->user_name ?? $user->name ?? 'ゲスト' }}</h2>
+                <div class="rating-area">
+                    @if($averageRating)
+                        <div class="stars">
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($i <= $averageRating)
+                                    <span class="star filled">★</span>
+                                @else
+                                    <span class="star empty">★</span>
+                                @endif
+                            @endfor
+                        </div>
+                    @endif
+                </div>
+            </div>
 
             <a href="{{ route('profile.edit', ['back' => 'mypage']) }}" class="mypage-header-link">プロフィールを編集</a>
         </header>
@@ -27,8 +42,10 @@
         <nav class="mypage-tabs">
             <a href="{{ route('profile.show', ['page' => 'sell']) }}" class="mypage-tabs-tab {{ $active === 'sell' ? 'active' : '' }}">出品した商品</a>
             <a href="{{ route('profile.show', ['page' => 'buy']) }}" class="mypage-tabs-tab {{ $active === 'buy' ? 'active' : '' }}">購入した商品</a>
-            <a href="{{ route('profile.show', ['page' => 'trade']) }}" class="mypage-tabs-tab {{ $active === 'buy' ? 'active' : '' }}">取引中の商品
-                <span class="messages">{{ $tradings->sum('unread_count') }}</span>
+            <a href="{{ route('profile.show', ['page' => 'trade']) }}" class="mypage-tabs-tab {{ $active === 'trade' ? 'active' : '' }}">取引中の商品
+                @if($tradings->sum('unread_count') > 0 )
+                    <span class="messages-total">{{ $tradings->sum('unread_count') }}</span>
+                @endif
             </a>
         </nav>
         <hr>
@@ -83,9 +100,7 @@
                             <div class="mypage-product">
                                 <a href="{{ route('trade.show', ['order' => $trading->id])}}" class="mypage-product-link">
                                     @if($trading->unread_count > 0)
-                                        <div class="messages-count">
-                                            <p>{{ $trading->unread_count }}</p>
-                                        </div>
+                                        <span class="messages-count">{{ $trading->unread_count }}</span>
                                     @endif
                                     <img src="{{ Storage::url($trading->product->image) }}" alt="商品画像" class="mypage-product-image">
                                     <div class="mypage-product-detail">

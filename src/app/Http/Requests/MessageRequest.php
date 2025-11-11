@@ -32,8 +32,8 @@ class MessageRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'body.required' => '入力してください',
-            'body.max' => '400文字以下で入力してください',
+            'body.required' => '本文を入力してください',
+            'body.max' => '本文は400文字以内で入力してください',
 
             'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
         ];
