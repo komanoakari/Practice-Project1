@@ -45,11 +45,18 @@ class TradingController extends Controller
 
     public function review(Request $request, Order $order)
     {
+        // dd($request->review);
         if($order->user_id === auth()->id()){
             $evaluatedUserId = $order->product->user->id;
         } else {
             $evaluatedUserId = $order->user->id;
         }
+
+        $request->validate([
+            'review' => 'required|integer|min:1|max:5',
+        ],[
+            'review.required' => '評価を選択してください',
+        ]);
 
         Evaluation::create([
             'evaluator_id' => auth()->id(),
@@ -57,8 +64,7 @@ class TradingController extends Controller
             'order_id' => $order->id,
             'rating' => $request->review,
         ]);
-
-        $order->checkAndComplete();
+        // $order->checkAndComplete();
 
         return redirect()->route('products.index');
     }

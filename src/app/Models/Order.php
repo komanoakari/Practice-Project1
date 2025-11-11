@@ -59,21 +59,21 @@ class Order extends Model
         return $this->hasMany(Evaluation::class);
     }
 
-    public function checkAndComplete()
-    {
-        $buyerId = $this->user_id;
-        $sellerId = $this->product->user_id;
+    // public function checkAndComplete()
+    // {
+    //     $buyerId = $this->user_id;
+    //     $sellerId = $this->product->user_id;
 
-        $buyerEvaluated = $this->evaluations()
-            ->where('evaluator_id', $buyerId)
-            ->exists();
+    //     $buyerEvaluated = $this->evaluations()
+    //         ->where('evaluator_id', $buyerId)
+    //         ->exists();
 
-        $sellerEvaluated = $this->evaluations()
-            ->where('evaluator_id', $sellerId)
-            ->exists();
+    //     $sellerEvaluated = $this->evaluations()
+    //         ->where('evaluator_id', $sellerId)
+    //         ->exists();
 
-        if ($buyerEvaluated && $sellerEvaluated && is_null($this->completed_at)) {
-            $this->update(['completed_at' => now()]);
-        }
-    }
+    //     if ($buyerEvaluated && $sellerEvaluated && is_null($this->completed_at)) {
+    //         $this->update(['completed_at' => now()]);
+    //     }
+    // }
 }
