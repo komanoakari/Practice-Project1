@@ -142,9 +142,11 @@ docker compose exec php bash -lc 'cd src && php artisan test'
 
 ## ログイン用テストアカウント（Seeder で作成済み）
 
-| ユーザー ① | `test1@example.com` | `password` |
-| ユーザー ② | `test2@example.com` | `password` |
-| ユーザー ③（何も紐づけていないユーザー） | `test3@example.com` | `password` |
+| アカウント                       | メールアドレス      | パスワード |
+| -------------------------------- | ------------------- | ---------- |
+| ユーザー ①                       | `test1@example.com` | `password` |
+| ユーザー ②                       | `test2@example.com` | `password` |
+| ユーザー ③（出品がないユーザー） | `test3@example.com` | `password` |
 
 ## カード決済（Stripe）のテスト方法
 

@@ -18,7 +18,7 @@ class CreateEvaluationsTable extends Migration
             $table->foreignId('evaluator_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('evaluated_user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
-            $table->integer('rating');
+            $table->integer('rating')->nullable();
             $table->timestamps();
 
             $table->unique(['evaluator_id', 'order_id']);
