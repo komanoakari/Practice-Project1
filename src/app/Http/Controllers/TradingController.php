@@ -45,7 +45,6 @@ class TradingController extends Controller
 
     public function review(Request $request, Order $order)
     {
-        // dd($request->review);
         if($order->user_id === auth()->id()){
             $evaluatedUserId = $order->product->user->id;
         } else {
@@ -64,7 +63,6 @@ class TradingController extends Controller
             'order_id' => $order->id,
             'rating' => $request->review,
         ]);
-        // $order->checkAndComplete();
 
         return redirect()->route('products.index');
     }

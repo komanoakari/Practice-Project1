@@ -25,7 +25,7 @@ class MessageRequest extends FormRequest
     {
         return [
             'body' => ['required', 'max:400'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png'],
+            'image' => ['sometimes', 'nullable', 'image', 'mimes:jpeg,png'],
         ];
     }
 
@@ -35,6 +35,7 @@ class MessageRequest extends FormRequest
             'body.required' => '本文を入力してください',
             'body.max' => '本文は400文字以内で入力してください',
 
+            'image.image' => '「.png」または「.jpeg」形式でアップロードしてください',
             'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
         ];
     }
