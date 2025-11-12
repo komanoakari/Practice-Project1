@@ -55,7 +55,6 @@ return [
         'string'  => ':attributeは、:value文字以上でなければなりません。',
         'array'   => ':attributeの項目数は、:value個以上でなければなりません。',
     ],
-    'image'                => ':attributeには、画像を指定してください。',
     'in'                   => '選択された:attributeは、有効ではありません。',
     'in_array'             => ':attributeが:otherに存在しません。',
     'integer'              => ':attributeには、整数を指定してください。',
