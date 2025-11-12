@@ -79,14 +79,12 @@ class ProfileController extends Controller
     {
         $buyingOrders = auth()->user()->orders()
             ->where('status', 'paid')
-            ->whereNull('completed_at')
             ->with('product')
             ->get();
 
         $sellingOrders = auth()->user()->products()
             ->whereHas('order', function($query) {
-                $query->where('status', 'paid')
-                    ->whereNull('completed_at');
+                $query->where('status', 'paid');
             })
             ->with('order')
             ->get()
@@ -102,6 +100,7 @@ class ProfileController extends Controller
 
         $tradings = $allTradings->filter(function ($trading) {
             $hasEvaluated = $trading->evaluations()
+                ->where('evaluator_id', auth()->id())
                 ->exists();
             return !$hasEvaluated;
         });
