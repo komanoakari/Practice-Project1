@@ -25,12 +25,13 @@
 5. Stripe（カード決済）を試す場合
 
 ```bash
-composer require stripe/stripe-php
+composer install --no-audit --ignore-platform-reqs
 ```
 
+> ※ Stripe パッケージは既に composer.json に含まれています
 > Stripe ダッシュボード（テストモード）で API キーを取得し、.env に追加。
 
-5. .env に以下の環境変数を追加
+6. .env に以下の環境変数を追加
 
 ```text
 APP_URL=http://localhost:8016
@@ -58,14 +59,14 @@ STRIPE_KEY=pk_test_********
 STRIPE_SECRET=sk_test_********
 ```
 
-6. アプリケーションキーの作成
+7. アプリケーションキーの作成
 
 ```bash
 php artisan key:generate
 php artisan config:clear
 ```
 
-7. マイグレーション & 初期データ投入 & 画像の配置
+8. マイグレーション & 初期データ投入 & 画像の配置
 
 ```bash
 php artisan migrate --seed
