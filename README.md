@@ -25,7 +25,7 @@
 5. Stripe（カード決済）を試す場合
 
 ```bash
-composer install --no-audit --ignore-platform-reqs
+composer install --ignore-platform-reqs
 ```
 
 > ※ Stripe パッケージは既に composer.json に含まれています
