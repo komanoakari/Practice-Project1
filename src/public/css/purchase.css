@@ -202,3 +202,114 @@ hr {
         margin-top: 30px;
     }
 }
+
+@media (max-width: 767px) {
+    .purchase-contents {
+        max-width: 100%;
+        margin: 60px auto 0;
+        padding: 16px;
+    }
+
+    .top-contents {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .left-content,
+    .right-content {
+        width: 100%;
+    }
+
+    .product-basic {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .product-image {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+
+    .product-basic-info {
+        width: 100%;
+        text-align: center;
+    }
+
+    .product-name {
+        font-size: 20px;
+    }
+
+    .product-price {
+        font-size: 20px;
+    }
+
+    .price-mark {
+        font-size: 16px;
+    }
+
+    hr {
+        margin-top: 24px;
+    }
+
+    .payment-method-title,
+    .shipping-title {
+        margin: 20px 0 0 16px;
+        font-size: 18px;
+    }
+
+    .select-wrap,
+    .shipping-details {
+        margin: 16px 16px 0;
+        width: calc(100% - 32px);
+        max-width: none;
+    }
+
+    .payment-option-select {
+        font-size: 16px;
+        height: 44px;
+    }
+
+    .shipping-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .shipping-edit {
+        margin: 0 0 0 16px;
+        font-size: 16px;
+    }
+
+    .shipping-postal_code,
+    .shipping-address {
+        font-size: 16px;
+    }
+
+    .purchase-summary {
+        max-width: 100%;
+        margin: 20px 0;
+    }
+
+    .purchase-summary th,
+    .purchase-summary td {
+        padding: 10px 12px;
+        font-size: 16px;
+    }
+
+    .purchase-btn {
+        max-width: 100%;
+        margin-top: 24px;
+        height: 50px;
+        font-size: 18px;
+    }
+
+    .payment-error-message,
+    .shipping-error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 4px;
+    }
+}

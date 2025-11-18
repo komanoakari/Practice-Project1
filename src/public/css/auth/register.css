@@ -83,3 +83,39 @@
     width: 100%;
     text-align: center;
 }
+
+@media (max-width: 767px) {
+    .register-form-heading {
+        margin-top: 80px;
+        font-size: 24px;
+    }
+
+    .register-form-inner {
+        margin-top: 24px;
+        padding: 0 16px;
+    }
+
+    .register-form-form {
+        width: 100%;
+        padding: 16px 8px;
+    }
+
+    .register-form-label {
+        font-size: 18px;
+    }
+
+    .register-form-input {
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .register-form-btn {
+        margin-top: 40px;
+        height: 48px;
+        font-size: 18px;
+    }
+
+    .login-link {
+        font-size: 16px;
+    }
+}

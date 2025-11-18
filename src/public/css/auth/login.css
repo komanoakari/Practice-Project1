@@ -91,3 +91,44 @@
     width: 100%;
     text-align: center;
 }
+
+@media (max-width: 767px) {
+    .login-form-heading {
+        margin-top: 80px;
+        font-size: 24px;
+    }
+
+    .login-form-inner {
+        margin-top: 24px;
+        padding: 0 16px;
+    }
+
+    .login-form-form {
+        width: 100%;
+        padding: 16px 8px;
+    }
+
+    .login-form-label {
+        font-size: 18px;
+    }
+
+    .login-form-input {
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .login-form-btn {
+        margin-top: 40px;
+        height: 48px;
+        font-size: 18px;
+    }
+
+    .register-link {
+        font-size: 16px;
+    }
+
+    .session-error {
+        font-size: 18px;
+        padding: 0 16px;
+    }
+}

@@ -502,4 +502,233 @@ hr {
     }
 }
 
+@media (max-width: 767px) {
+    .container {
+        flex-direction: column;
+    }
 
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 16px 0;
+    }
+
+    .sidebar-heading {
+        font-size: 18px;
+        margin: 12px 0 16px 16px;
+    }
+
+    .other-tradings ul {
+        display: flex;
+        overflow-x: auto;
+        gap: 12px;
+        margin: 0 16px;
+        padding: 0;
+    }
+
+    .other-tradings li {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .other-trading {
+        font-size: 14px;
+        width: 120px;
+        height: 36px;
+        padding: 8px;
+    }
+
+    .trading-content {
+        margin: 16px;
+    }
+
+    .user-info {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .user-icon img,
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .user-name {
+        font-size: 18px;
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .button {
+        width: 100%;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .complete-button {
+        font-size: 16px;
+        padding: 8px 16px;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    hr {
+        border: 1px solid #5f5f5f;
+        width: calc(100% + 32px);
+        margin-left: -16px;
+        margin-right: -16px;
+    }
+
+    .product-info {
+        flex-direction: column;
+        gap: 16px;
+        margin: 16px 0;
+    }
+
+    .product-info img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .item {
+        width: 100%;
+        text-align: center;
+    }
+
+    .name {
+        font-size: 24px;
+    }
+
+    .price {
+        font-size: 20px;
+        justify-content: center;
+    }
+
+    .price-mark {
+        font-size: 16px;
+    }
+
+    .chat-content {
+        margin: 16px 0;
+        max-height: 50vh;
+    }
+
+    .chat-right,
+    .chat-left {
+        margin: 0;
+    }
+
+    .chat-icon img,
+    .chat-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .chat-user-name {
+        font-size: 14px;
+    }
+
+    .own-message,
+    .body {
+        font-size: 14px;
+        max-width: 250px;
+        padding: 8px 12px;
+    }
+
+    .image-wrapper img {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .edit-button,
+    .remove-button {
+        font-size: 12px;
+    }
+
+    .input-form {
+        margin-top: 24px;
+        margin-bottom: 16px;
+    }
+
+    .text-area {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .text {
+        width: 100%;
+    }
+
+    .text textarea {
+        font-size: 14px;
+        height: 60px;
+        padding: 12px;
+    }
+
+    .input-image {
+        width: 100%;
+    }
+
+    .image-text {
+        font-size: 14px;
+        padding: 8px 16px;
+        display: block;
+        text-align: center;
+    }
+
+    .send-button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .send-button img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .error-message {
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .modal {
+        width: 90%;
+        max-width: 350px;
+        padding: 16px;
+    }
+
+    .modal-content h3 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .modal-content p {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .modal-content hr {
+        width: calc(100% + 32px);
+        margin-left: -16px;
+        margin-right: -16px;
+    }
+
+    .stars {
+        gap: 4px;
+    }
+
+    .stars label {
+        font-size: 45px;
+    }
+
+    .button-area {
+        padding: 16px 0;
+        justify-content: center;
+    }
+
+    .modal-button {
+        font-size: 16px;
+        padding: 8px 24px;
+    }
+}

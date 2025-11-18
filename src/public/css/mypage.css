@@ -218,3 +218,97 @@ hr {
         padding-left: 10px;
     }
 }
+
+@media (max-width: 767px) {
+    .mypage {
+        max-width: 100%;
+        padding: 16px;
+        margin: 60px auto 0;
+    }
+
+    .mypage-header {
+        grid-template-columns: 80px 1fr;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .mypage-header-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .mypage-header-name {
+        font-size: 20px;
+        padding-left: 8px;
+    }
+
+    .rating-area {
+        padding-left: 8px;
+    }
+
+    .stars {
+        gap: 1px;
+    }
+
+    .star {
+        font-size: 20px;
+    }
+
+    .mypage-header-link {
+        grid-column: 1 / -1;
+        justify-self: center;
+        font-size: 16px;
+        padding: 8px 16px;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .mypage-tabs {
+        gap: 16px;
+        justify-content: center;
+        margin-top: 24px;
+        padding: 0 16px 8px;
+        flex-wrap: wrap;
+    }
+
+    .mypage-tabs-tab {
+        font-size: 16px;
+    }
+
+    .messages-total {
+        font-size: 16px;
+        padding: 2px 4px;
+    }
+
+    .mypage-products {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin: 30px auto 30px;
+        padding: 0 16px;
+    }
+
+    .mypage-product-detail p {
+        font-size: 18px;
+    }
+
+    .mypage-product-status {
+        font-size: 18px;
+    }
+
+    .mypage-product-content {
+        font-size: 20px;
+        margin-top: 30px;
+    }
+
+    .messages-count {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+}
